@@ -9,8 +9,8 @@ SCREEN_WIDTH = pygame.display.Info().current_w
 SCREEN_HEIGHT = pygame.display.Info().current_h
 
 # character animation
-SPEED = 3
-DIAGONAL_SPEED = 2
+SPEED = 5
+DIAGONAL_SPEED = 3
 CHARACTER_ANIMATION_SPEED = 50
 CHARACTER_FRAMES_DIR = r"graphics\character_frames"
 
