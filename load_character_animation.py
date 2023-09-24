@@ -1,6 +1,6 @@
 import pygame
 import os
-from constants import COLOURKEY, SCALE
+from constants import COLOURKEY, SCALE, CHARACTER_FRAMES_DIR
 
 moving_character_frames = {"up": [],
                            "down": [],
@@ -11,8 +11,8 @@ moving_character_frames = {"up": [],
 
 still_character_frames = {}
 
-for name in os.listdir(r"graphics\frames"):
-    file = os.path.join(r"graphics\frames", name)
+for name in os.listdir(CHARACTER_FRAMES_DIR):
+    file = os.path.join(CHARACTER_FRAMES_DIR, name)
     if os.path.isfile(file):
         name, *_ = name.split(".")
         *name, frame_number = name.split("-")
