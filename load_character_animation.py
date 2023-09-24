@@ -18,7 +18,7 @@ for name in os.listdir(CHARACTER_FRAMES_DIR):
         *name, frame_number = name.split("-")
         name = "-".join(name)
         image = pygame.image.load(file)
-        image = pygame.transform.scale(image, (image.get_width() * SCALE, image.get_height() * SCALE))
+        image = pygame.transform.scale_by(image, SCALE)
         image.set_colorkey(COLOURKEY)
         moving_character_frames[name].append(image)
         if frame_number == "1":
