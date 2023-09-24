@@ -5,16 +5,16 @@
   "light": {"light": [[0, 0]]},
   "collision": 
   {
-    "left-fence-bottom": [[4, 206]],
-    "right-fence-bottom": [[336, 207]],
+    "left-fence": [[4, 206]],
+    "right-fence": [[336, 207]],
     "log-bottom": [[31, 268]],
     "blue-flower-bottom": [[55, 338], [170, 381], [193, 277], [313, 416], [319, 276], [385, 424]],
     "yellow-flower-bottom": [[71, 348], [158, 391], [182, 299], [301, 428], [341, 276], [358, 363], [414, 263]],
     "pink-flower-bottom": [[83, 419], [162, 282], [371, 414], [404, 303]],
-    "axe-bottom": [[68, 249]],
-    "house-bottom": [[96, 19]],
+    "axe": [[68, 249]],
+    "house": [[96, 19]],
     "easel-bottom": [[350, 297]],
-    "notch-bottom": [[440, 347]]
+    "notch": [[440, 347]]
   },
   "no-collision":
   {
