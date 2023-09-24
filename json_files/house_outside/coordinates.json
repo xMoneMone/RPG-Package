@@ -1,5 +1,7 @@
 {
-  "background_color": [255, 255, 255],
+  "player_start": [350, 300],
+  "background_color": [21,33,17],
+  "center": ["background", "frame"],
   "light": {"light": [[0, 0]]},
   "collision": 
   {

@@ -14,7 +14,7 @@ def main():
 
     player = Character(200, 300, game_screen)
 
-    current_room = Room(ROOM_PATHS['house_outside'])
+    current_room = Room(ROOM_PATHS['house_outside'], player)
 
     while True:
         for evnt in pygame.event.get():
