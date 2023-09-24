@@ -1,7 +1,5 @@
 {
-  "background_colour": [255, 255, 255],
-  "background": "center",
-  "frame": "center",
+  "background_color": [255, 255, 255],
   "light": {"light": [[0, 0]]},
   "collision": 
   {
