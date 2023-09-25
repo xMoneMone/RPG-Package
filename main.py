@@ -22,8 +22,8 @@ def main():
                 if evnt.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
-        game_screen.fill((0, 0, 0))
 
+        game_screen.fill((0, 0, 0))
         current_room.draw_room(game_screen, player)
 
         pygame.display.update()

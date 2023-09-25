@@ -2,7 +2,7 @@ import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCALE, COLOURKEY
 
 
-class Center(pygame.sprite.Sprite):
+class CenterAsset(pygame.sprite.Sprite):
     def __init__(self, image):
         pygame.sprite.Sprite.__init__(self)
         self.image = image

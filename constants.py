@@ -9,8 +9,10 @@ SCREEN_WIDTH = pygame.display.Info().current_w
 SCREEN_HEIGHT = pygame.display.Info().current_h
 
 # character animation
-SPEED = 5
-DIAGONAL_SPEED = 3
+clock = pygame.time.Clock()
+dt = clock.tick(FPS)
+SPEED = 450 * (dt / 1000)
+DIAGONAL_SPEED = 300 * (dt / 1000)
 CHARACTER_ANIMATION_SPEED = 50
 CHARACTER_FRAMES_DIR = r"graphics\character_frames"
 
@@ -18,6 +20,6 @@ CHARACTER_FRAMES_DIR = r"graphics\character_frames"
 ROOM_PATHS = {
     "house_outside": {
         "json": r"json_files\house_outside\coordinates.json",
-        "assets": r"graphics\room_assets\house_outside\\"
+        "assets": r"graphics\room_assets\house_outside"
     }
 }
