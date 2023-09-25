@@ -28,32 +28,32 @@ class Room:
         screen.blit(self.frame.image, (self.frame.x, self.frame.y))
 
     def load_room(self, paths, player):
-        with open(paths['json']) as f:
+        with open(paths.json) as f:
             data = json.load(f)
 
             self.background_color = data["background_color"]
 
             if "background" in data["center"]:
-                background_image = pygame.image.load(fr"{paths['assets']}\background.png")
+                background_image = pygame.image.load(fr"{paths.assets}\background.png")
                 self.background = CenterAsset(background_image)
 
             if "frame" in data["center"]:
-                frame_image = pygame.image.load(fr"{paths['assets']}\frame.png")
+                frame_image = pygame.image.load(fr"{paths.assets}\frame.png")
                 self.frame = CenterAsset(frame_image)
 
             for asset in data["light"]:
-                light_image = pygame.image.load(fr"{paths['assets']}\{asset}.png")
+                light_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
                 self.light.append(
                     NoCollisionAsset(self.background, light_image, data["light"][asset][0][0], data["light"][asset][0][1]))
 
             for asset in data["no-collision"]:
-                no_col_image = pygame.image.load(fr"{paths['assets']}\{asset}.png")
+                no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
                 self.non_collidables.append(
                     NoCollisionAsset(self.background, no_col_image, data["no-collision"][asset][0][0],
                                      data["no-collision"][asset][0][1]))
 
             for asset in data["collision"]:
-                no_col_image = pygame.image.load(fr"{paths['assets']}\{asset}.png")
+                no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
                 self.collidables.append(
                     NoCollisionAsset(self.background, no_col_image, data["collision"][asset][0][0],
                                      data["collision"][asset][0][1]))

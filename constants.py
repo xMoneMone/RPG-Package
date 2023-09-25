@@ -1,4 +1,7 @@
+from collections import namedtuple
+
 import pygame
+
 pygame.init()
 
 # general
@@ -17,9 +20,8 @@ CHARACTER_ANIMATION_SPEED = 50
 CHARACTER_FRAMES_DIR = r"graphics\character_frames"
 
 # rooms
+Room = namedtuple('Room', ['json', 'assets'])
 ROOM_PATHS = {
-    "house_outside": {
-        "json": r"json_files\house_outside\coordinates.json",
-        "assets": r"graphics\room_assets\house_outside"
-    }
+    'house_outside': Room(json=r"json_files\house_outside\coordinates.json",
+                          assets=r"graphics\room_assets\house_outside")
 }
