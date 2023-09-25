@@ -18,7 +18,7 @@ class Character:
     def movement(self, room):
         pressed = pygame.key.get_pressed()
 
-        if any(pressed):
+        if pressed[pygame.K_RIGHT] or pressed[pygame.K_LEFT] or pressed[pygame.K_DOWN] or pressed[pygame.K_UP]:
             new_image = self.animation.animate(moving_character_frames[self.direction])
             if pressed[pygame.K_RIGHT] and pressed[pygame.K_UP] and not colliding(room, self, "up-right"):
                 self.direction = "up-right"

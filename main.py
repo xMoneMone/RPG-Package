@@ -1,6 +1,7 @@
 import pygame
-from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, ROOM_PATHS
+
 from character import Character
+from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, ROOM_PATHS
 from room import Room
 
 
