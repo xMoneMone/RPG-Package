@@ -21,9 +21,15 @@ class Room:
         screen.blit(self.background.image, (self.background.x, self.background.y))
         for col in self.collidables:
             screen.blit(col.image, (col.x, col.y))
-        player.movement(self)
         for no_col in self.non_collidables:
             screen.blit(no_col.image, (no_col.x, no_col.y))
+        player.movement(self)
+        for no_col in self.non_collidables:
+            if player.rectangle.y <= no_col.y:
+                screen.blit(no_col.image, (no_col.x, no_col.y))
+        for col in self.collidables:
+            if player.rectangle.y <= col.y:
+                screen.blit(col.image, (col.x, col.y))
         for light in self.light:
             screen.blit(light.image, (light.x, light.y), special_flags=pygame.BLEND_ADD)
         screen.blit(self.frame.image, (self.frame.x, self.frame.y))
