@@ -18,6 +18,7 @@ SPEED = 450 * (dt / 1000)
 DIAGONAL_SPEED = 300 * (dt / 1000)
 CHARACTER_ANIMATION_SPEED = 50
 CHARACTER_FRAMES_DIR = r"graphics\character_frames"
+COLLISION_MARGIN = 3
 
 # rooms
 Room = namedtuple('Room', ['json', 'assets'])
