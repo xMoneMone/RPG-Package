@@ -44,20 +44,27 @@ class Room:
 
             for asset in data["light"]:
                 light_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
-                self.light.append(
-                    NoCollisionAsset(self.background, light_image, data["light"][asset][0][0], data["light"][asset][0][1]))
+                for asset_instance in data["light"][asset]:
+                    self.light.append(
+                        NoCollisionAsset(self.background, light_image, asset_instance[0],
+                                         asset_instance[1]))
 
             for asset in data["no-collision"]:
                 no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
-                self.non_collidables.append(
-                    NoCollisionAsset(self.background, no_col_image, data["no-collision"][asset][0][0],
-                                     data["no-collision"][asset][0][1]))
+                for asset_instance in data["no-collision"][asset]:
+                    self.non_collidables.append(
+                        NoCollisionAsset(self.background, no_col_image, asset_instance[0],
+                                         asset_instance[1]))
 
             for asset in data["collision"]:
                 no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
-                self.collidables.append(
-                    CollisionAsset(self.background, no_col_image, data["collision"][asset][0][0],
-                                     data["collision"][asset][0][1]))
+                for asset_instance in data["collision"][asset]:
+                    name = asset
+                    if len(asset_instance) == 3:
+                        name = asset_instance[2]
+                    self.collidables.append(
+                        CollisionAsset(self.background, no_col_image, asset_instance[0],
+                                       asset_instance[1], name))
 
             player.rectangle.x = self.background.x + data["player_start"][0] * SCALE
             player.rectangle.y = self.background.y + data["player_start"][1] * SCALE
