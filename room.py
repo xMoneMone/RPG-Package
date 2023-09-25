@@ -2,6 +2,7 @@ import json
 import pygame
 from center_asset import CenterAsset
 from no_collision_asset import NoCollisionAsset
+from collision_asset import CollisionAsset
 from constants import SCALE
 
 
@@ -20,7 +21,7 @@ class Room:
         screen.blit(self.background.image, (self.background.x, self.background.y))
         for col in self.collidables:
             screen.blit(col.image, (col.x, col.y))
-        player.movement()
+        player.movement(self)
         for no_col in self.non_collidables:
             screen.blit(no_col.image, (no_col.x, no_col.y))
         for light in self.light:
@@ -53,9 +54,9 @@ class Room:
                                      data["no-collision"][asset][0][1]))
 
             for asset in data["collision"]:
-                no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
+                col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
                 self.collidables.append(
-                    NoCollisionAsset(self.background, no_col_image, data["collision"][asset][0][0],
+                    CollisionAsset(self.background, col_image, data["collision"][asset][0][0],
                                      data["collision"][asset][0][1]))
 
             player.rectangle.x = self.background.x + data["player_start"][0] * SCALE
