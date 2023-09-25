@@ -14,8 +14,8 @@ SCREEN_HEIGHT = pygame.display.Info().current_h
 # character animation
 clock = pygame.time.Clock()
 dt = clock.tick(FPS)
-SPEED = 450 * (dt / 1000)
-DIAGONAL_SPEED = 300 * (dt / 1000)
+SPEED = 600 * (dt / 1000)
+DIAGONAL_SPEED = SPEED / (2 ** 0.5)
 CHARACTER_ANIMATION_SPEED = 50
 CHARACTER_FRAMES_DIR = r"graphics\character_frames"
 COLLISION_MARGIN = 10
