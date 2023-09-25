@@ -11,7 +11,7 @@ COLOURKEY = (255, 75, 248)
 SCREEN_WIDTH = pygame.display.Info().current_w
 SCREEN_HEIGHT = pygame.display.Info().current_h
 
-# character animation
+# player
 clock = pygame.time.Clock()
 dt = clock.tick(FPS)
 SPEED = 600 * (dt / 1000)
