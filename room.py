@@ -3,7 +3,7 @@ import pygame
 from center_asset import CenterAsset
 from no_collision_asset import NoCollisionAsset
 from collision_asset import CollisionAsset
-from constants import SCALE
+from constants import SCALE, COLLISION_MARGIN
 
 
 class Room:
@@ -25,7 +25,7 @@ class Room:
             screen.blit(no_col.image, (no_col.x, no_col.y))
         player.movement(self)
         for no_col in self.non_collidables:
-            if player.rectangle.y <= no_col.y:
+            if player.rectangle.bottom <= no_col.y + no_col.image.get_height() + COLLISION_MARGIN:
                 screen.blit(no_col.image, (no_col.x, no_col.y))
         for col in self.collidables:
             if player.rectangle.y <= col.y:
