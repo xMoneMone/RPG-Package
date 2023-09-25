@@ -2,6 +2,7 @@ import pygame
 from load_character_animation import still_character_frames, moving_character_frames
 from constants import SPEED, CHARACTER_ANIMATION_SPEED, DIAGONAL_SPEED
 from animation import Animation
+from collisions import colliding
 
 
 class Character:
@@ -14,37 +15,37 @@ class Character:
         self.screen = screen
         self.image = still_character_frames["down"]
 
-    def movement(self):
+    def movement(self, room):
         pressed = pygame.key.get_pressed()
 
         if any(pressed):
             new_image = self.animation.animate(moving_character_frames[self.direction])
-            if pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]:
+            if pressed[pygame.K_RIGHT] and pressed[pygame.K_UP] and not colliding(room, self, "up-right"):
                 self.direction = "up-right"
                 self.rectangle.x += DIAGONAL_SPEED
                 self.rectangle.y -= DIAGONAL_SPEED
-            elif pressed[pygame.K_LEFT] and pressed[pygame.K_UP]:
+            elif pressed[pygame.K_LEFT] and pressed[pygame.K_UP] and not colliding(room, self, "up-left"):
                 self.direction = "up-left"
                 self.rectangle.x -= DIAGONAL_SPEED
                 self.rectangle.y -= DIAGONAL_SPEED
-            elif pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]:
+            elif pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN] and not colliding(room, self, "down-right"):
                 self.direction = "right"
                 self.rectangle.x += DIAGONAL_SPEED
                 self.rectangle.y += DIAGONAL_SPEED
-            elif pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]:
+            elif pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN] and not colliding(room, self, "down-left"):
                 self.direction = "left"
                 self.rectangle.x -= DIAGONAL_SPEED
                 self.rectangle.y += DIAGONAL_SPEED
-            elif pressed[pygame.K_DOWN] and pressed.count(True) == 1:
+            elif pressed[pygame.K_DOWN] and pressed.count(True) == 1 and not colliding(room, self, "down"):
                 self.direction = "down"
                 self.rectangle.y += SPEED
-            elif pressed[pygame.K_UP] and pressed.count(True) == 1:
+            elif pressed[pygame.K_UP] and pressed.count(True) == 1 and not colliding(room, self, "up"):
                 self.direction = "up"
                 self.rectangle.y -= SPEED
-            elif pressed[pygame.K_LEFT] and pressed.count(True) == 1:
+            elif pressed[pygame.K_LEFT] and pressed.count(True) == 1 and not colliding(room, self, "left"):
                 self.direction = "left"
                 self.rectangle.x -= SPEED
-            elif pressed[pygame.K_RIGHT] and pressed.count(True) == 1:
+            elif pressed[pygame.K_RIGHT] and pressed.count(True) == 1 and not colliding(room, self, "right"):
                 self.direction = "right"
                 self.rectangle.x += SPEED
 
@@ -53,4 +54,4 @@ class Character:
         else:
             self.image = still_character_frames[self.direction]
 
-        self.screen.blit(self.image, (self.rectangle.x, self.rectangle.y))
+        self.screen.blit(self.image, (self.rectangle.x, self.rectangle.y - ((self.height // 3) * 2)))
