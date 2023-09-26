@@ -1,7 +1,7 @@
 import pygame
 
 from character import Character
-from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, ROOM_PATHS, CAPTION, ICON, COLOURKEY
+from settings import GameSettings, PlayerSettings
 from room import Room
 from interaction import execute_interaction
 
@@ -9,16 +9,23 @@ from interaction import execute_interaction
 def main():
     pygame.init()
 
-    game_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption(CAPTION)
-    icon = pygame.image.load(ICON)
-    icon.set_colorkey(COLOURKEY)
+    game_settings = GameSettings(r"graphics\character_frames\down-1.png", scale=2, colourkey=(255, 75, 248),
+                                 width=pygame.display.Info().current_w, height=pygame.display.Info().current_h)
+    player_settings = PlayerSettings(r"graphics\character_frames")
+
+    game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
+    pygame.display.set_caption(game_settings.CAPTION)
+    icon = pygame.image.load(game_settings.ICON)
+    icon.set_colorkey(game_settings.COLOURKEY)
     pygame.display.set_icon(icon)
 
     clock = pygame.time.Clock()
 
-    player = Character(200, 300, game_screen)
-    current_room = Room(ROOM_PATHS['house_outside'], player)
+    player = Character(480, 540, game_screen, game_settings, player_settings)
+    current_room = Room("house_outside", r"json_files\house_outside\coordinates.json",
+                        r"json_files\house_outside\interaction_text.json",
+                        r"graphics\room_assets\house_outside",
+                        player, game_settings)
 
     while True:
         for evnt in pygame.event.get():
@@ -33,7 +40,7 @@ def main():
         current_room.draw_room(game_screen, player)
 
         pygame.display.update()
-        clock.tick(FPS)
+        clock.tick(game_settings.FPS)
 
 
 if __name__ == "__main__":
