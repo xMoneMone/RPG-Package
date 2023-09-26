@@ -6,7 +6,7 @@ from interaction import execute_interaction
 from draw_room import draw_room
 
 
-def run_game(game_settings: GameSettings, player_settings: PlayerSettings, player_x, player_y, room: Room):
+def run_game(game_settings: GameSettings, room: Room, player=None):
     pygame.init()
 
     game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
@@ -17,8 +17,6 @@ def run_game(game_settings: GameSettings, player_settings: PlayerSettings, playe
 
     clock = pygame.time.Clock()
 
-    player = Character(player_x, player_y, game_screen, game_settings, player_settings)
-
     while True:
         for evnt in pygame.event.get():
             if evnt.type == pygame.KEYDOWN:
@@ -26,8 +24,11 @@ def run_game(game_settings: GameSettings, player_settings: PlayerSettings, playe
                     pygame.quit()
                     exit()
                 if evnt.key == pygame.K_SPACE:
-                    execute_interaction(player, room)
+                    if player:
+                        execute_interaction(player, room)
 
+        if player:
+            player.movement(room)
         draw_room(room, game_screen, player)
 
         pygame.display.update()

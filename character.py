@@ -6,7 +6,7 @@ from room import Room
 
 
 class Character:
-    def __init__(self, pos_x: int, pos_y: int, screen: pygame.Surface, game_settings, player_settings):
+    def __init__(self, pos_x: int, pos_y: int, game_settings, player_settings):
         self.settings = player_settings
         self.game_settings = game_settings
         self.moving_character_frames = {
@@ -24,7 +24,6 @@ class Character:
         self.rectangle = pygame.Rect(pos_x, pos_y, self.width, self.height // self.settings.HITBOX_RATIO)
         self.direction = self.settings.DOWN
         self.animation = Animation(self.settings.ANIMATION_SPEED)
-        self.screen = screen
         self.image = self.still_character_frames[self.settings.DOWN]
 
     def load_character_animation(self):
@@ -77,12 +76,14 @@ class Character:
                 self.rectangle.x -= self.settings.DIAGONAL_SPEED
                 self.rectangle.y -= self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or (
-                    pressed[pygame.K_d] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_RIGHT):
+                    pressed[pygame.K_d] and pressed[pygame.K_s])) and not colliding(room, self,
+                                                                                    self.settings.DOWN_RIGHT):
                 self.direction = self.settings.RIGHT
                 self.rectangle.x += self.settings.DIAGONAL_SPEED
                 self.rectangle.y += self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or (
-                    pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_LEFT):
+                    pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self,
+                                                                                    self.settings.DOWN_LEFT):
                 self.direction = self.settings.LEFT
                 self.rectangle.x -= self.settings.DIAGONAL_SPEED
                 self.rectangle.y += self.settings.DIAGONAL_SPEED
@@ -107,6 +108,3 @@ class Character:
                 self.image = new_image
         else:
             self.image = self.still_character_frames[self.direction]
-
-        self.screen.blit(self.image,
-                         (self.rectangle.x, self.rectangle.y - ((self.height // self.settings.HITBOX_RATIO) * 2)))
