@@ -21,7 +21,8 @@ def interacting_with(player: Character, room: Room):
     elif player.direction == player.settings.RIGHT:
         all_colliding = sorted(all_colliding, key=lambda x: abs(x.rectangle.left - player.rectangle.midtop[0]))
 
-    return all_colliding[0]
+    if all_colliding:
+        return all_colliding[0]
 
 
 def execute_interaction(player: Character, room: Room):
