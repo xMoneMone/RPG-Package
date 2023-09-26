@@ -2,8 +2,8 @@ import pygame
 from center_asset import CenterAsset
 
 
-class CollisionAsset:
-    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, name: str, game_settings,
+class StaticObject:
+    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, game_settings, name: str = "",
                  text: str = ""):
         self.name = name
         self.text = text

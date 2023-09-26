@@ -1,8 +1,7 @@
 import json
 import pygame
 from center_asset import CenterAsset
-from no_collision_asset import NoCollisionAsset
-from collision_asset import CollisionAsset
+from static_object import StaticObject
 
 
 class Room:
@@ -41,15 +40,15 @@ class Room:
                     light_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
                     for asset_instance in data["light"][asset]:
                         self.light.append(
-                            NoCollisionAsset(self.background, light_image, asset_instance[0],
-                                             asset_instance[1], self.game_settings))
+                            StaticObject(self.background, light_image, asset_instance[0],
+                                         asset_instance[1], self.game_settings))
 
                 for asset in data["no-collision"]:
                     no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
                     for asset_instance in data["no-collision"][asset]:
                         self.non_collidables.append(
-                            NoCollisionAsset(self.background, no_col_image, asset_instance[0],
-                                             asset_instance[1], self.game_settings))
+                            StaticObject(self.background, no_col_image, asset_instance[0],
+                                         asset_instance[1], self.game_settings))
 
                 for asset in data["collision"]:
                     no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
@@ -58,7 +57,7 @@ class Room:
                         if len(asset_instance) == 3:
                             name = asset_instance[2]
                         self.collidables.append(
-                            CollisionAsset(self.background, no_col_image, asset_instance[0],
-                                           asset_instance[1], name, self.game_settings))
+                            StaticObject(self.background, no_col_image, asset_instance[0],
+                                         asset_instance[1], self.game_settings, name))
                         if asset in text:
                             self.collidables[-1].text = text[asset]
