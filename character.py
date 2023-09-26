@@ -15,12 +15,31 @@ class Character:
         self.screen = screen
         self.image = still_character_frames["down"]
 
+    def change_direction(self, pressed):
+        if (pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or (pressed[pygame.K_d] and pressed[pygame.K_w]):
+            self.direction = "up-right"
+        elif (pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or (pressed[pygame.K_a] and pressed[pygame.K_w]):
+            self.direction = "up-left"
+        elif (pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or (pressed[pygame.K_d] and pressed[pygame.K_s]):
+            self.direction = "right"
+        elif (pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or (pressed[pygame.K_a] and pressed[pygame.K_s]):
+            self.direction = "left"
+        elif (pressed[pygame.K_DOWN] or pressed[pygame.K_s]) and pressed.count(True) == 1:
+            self.direction = "down"
+        elif (pressed[pygame.K_UP] or pressed[pygame.K_w]) and pressed.count(True) == 1:
+            self.direction = "up"
+        elif (pressed[pygame.K_LEFT] or pressed[pygame.K_a]) and pressed.count(True) == 1:
+            self.direction = "left"
+        elif (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]) and pressed.count(True) == 1:
+            self.direction = "right"
+
     def movement(self, room):
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_LEFT] or pressed[pygame.K_DOWN] or pressed[pygame.K_UP] or \
                 pressed[pygame.K_d] or pressed[pygame.K_a] or pressed[pygame.K_s] or pressed[pygame.K_w]:
             new_image = self.animation.animate(moving_character_frames[self.direction])
+            self.change_direction(pressed)
             if ((pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or (
                     pressed[pygame.K_d] and pressed[pygame.K_w])) and not colliding(room, self, "up-right"):
                 self.direction = "up-right"
