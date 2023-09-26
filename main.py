@@ -15,8 +15,9 @@ def main():
     current_room = Room("house_outside", r"json_files\house_outside\coordinates.json",
                         r"json_files\house_outside\interaction_text.json",
                         r"graphics\room_assets\house_outside", game_settings)
+    interactions = {}
 
-    run_game(game_settings, current_room, player)
+    run_game(game_settings, current_room, interactions, player)
 
 
 if __name__ == "__main__":

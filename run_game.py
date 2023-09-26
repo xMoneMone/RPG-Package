@@ -1,12 +1,11 @@
 import pygame
-from settings import GameSettings, PlayerSettings
-from character import Character
+from settings import GameSettings
 from room import Room
 from interaction import execute_interaction
 from draw_room import draw_room
 
 
-def run_game(game_settings: GameSettings, room: Room, player=None):
+def run_game(game_settings: GameSettings, room: Room, interactions=None, player=None):
     pygame.init()
 
     game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
@@ -25,7 +24,7 @@ def run_game(game_settings: GameSettings, room: Room, player=None):
                     exit()
                 if evnt.key == pygame.K_SPACE:
                     if player:
-                        execute_interaction(player, room)
+                        execute_interaction(player, room, interactions)
 
         if player:
             player.movement(room)

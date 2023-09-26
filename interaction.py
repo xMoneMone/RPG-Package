@@ -1,10 +1,6 @@
 from character import Character
 from room import Room
 
-interactions = {
-
-}
-
 
 def interacting_with(player: Character, room: Room):
     all_colliding = []
@@ -34,11 +30,12 @@ def interacting_with(player: Character, room: Room):
         return all_colliding[0]
 
 
-def execute_interaction(player: Character, room: Room):
+def execute_interaction(player: Character, room: Room, interactions: dict = None):
     asset = interacting_with(player, room)
 
     if asset:
-        if asset.name in interactions:
-            interactions[asset.name]()
+        if interactions:
+            if asset.name in interactions:
+                interactions[asset.name]()
         elif asset.text:
             print(asset.text)
