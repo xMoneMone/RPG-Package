@@ -1,9 +1,8 @@
 from constants import COLLISION_MARGIN
 from room import Room
-from character import Character
 
 
-def colliding(room: Room, player: Character, player_direction: str):
+def colliding(room: Room, player, player_direction: str):
     # room boundaries
     room_bottom = room.background.y + room.background.image.get_height()
     room_right = room.background.x + room.background.image.get_width()
