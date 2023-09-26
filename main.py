@@ -3,6 +3,7 @@ import pygame
 from character import Character
 from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, ROOM_PATHS, CAPTION, ICON, COLOURKEY
 from room import Room
+from interaction import interacting_with
 
 
 def main():
@@ -25,6 +26,8 @@ def main():
                 if evnt.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
+                if evnt.key == pygame.K_SPACE:
+                    interacting_with(player, current_room)
 
         game_screen.fill((0, 0, 0))
         current_room.draw_room(game_screen, player)
