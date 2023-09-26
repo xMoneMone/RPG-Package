@@ -3,10 +3,11 @@ import os
 from constants import SPEED, CHARACTER_ANIMATION_SPEED, DIAGONAL_SPEED, COLOURKEY, SCALE, CHARACTER_FRAMES_DIR
 from animation import Animation
 from collisions import colliding
+from room import Room
 
 
 class Character:
-    def __init__(self, pos_x, pos_y, screen: pygame.Surface):
+    def __init__(self, pos_x: int, pos_y: int, screen: pygame.Surface):
         self.moving_character_frames = {"up": [],
                                         "down": [],
                                         "left": [],
@@ -37,7 +38,7 @@ class Character:
                 if frame_number == "1":
                     self.still_character_frames[name] = image
 
-    def change_direction(self, pressed):
+    def change_direction(self, pressed: tuple):
         if (pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or (pressed[pygame.K_d] and pressed[pygame.K_w]):
             self.direction = "up-right"
         elif (pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or (pressed[pygame.K_a] and pressed[pygame.K_w]):
@@ -55,7 +56,7 @@ class Character:
         elif (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]) and pressed.count(True) == 1:
             self.direction = "right"
 
-    def movement(self, room):
+    def movement(self, room: Room):
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_LEFT] or pressed[pygame.K_DOWN] or pressed[pygame.K_UP] or \

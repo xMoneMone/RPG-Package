@@ -3,7 +3,7 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCALE, COLOURKEY
 
 
 class CenterAsset:
-    def __init__(self, image):
+    def __init__(self, image: pygame.Surface):
         self.image = image
         self.image = pygame.transform.scale_by(self.image, SCALE)
         self.image.set_colorkey(COLOURKEY)

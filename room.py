@@ -1,13 +1,15 @@
 import json
+from collections import namedtuple
 import pygame
 from center_asset import CenterAsset
 from no_collision_asset import NoCollisionAsset
 from collision_asset import CollisionAsset
 from constants import SCALE, COLLISION_MARGIN
+from character import Character
 
 
 class Room:
-    def __init__(self, paths, player):
+    def __init__(self, paths: namedtuple, player: Character):
         self.background_color = (255, 255, 255)
         self.background = None
         self.collidables = []
@@ -16,7 +18,7 @@ class Room:
         self.frame = None
         self.load_room(paths, player)
 
-    def draw_room(self, screen, player):
+    def draw_room(self, screen: pygame.Surface, player: Character):
         screen.fill(self.background_color)
         screen.blit(self.background.image, (self.background.x, self.background.y))
         for col in self.collidables:
@@ -34,7 +36,7 @@ class Room:
             screen.blit(light.image, (light.x, light.y), special_flags=pygame.BLEND_ADD)
         screen.blit(self.frame.image, (self.frame.x, self.frame.y))
 
-    def load_room(self, paths, player):
+    def load_room(self, paths: namedtuple, player: Character):
         with open(paths.json) as f:
             data = json.load(f)
 

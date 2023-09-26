@@ -1,9 +1,10 @@
 import pygame
 from constants import SCALE, COLOURKEY
+from center_asset import CenterAsset
 
 
 class CollisionAsset:
-    def __init__(self, background, image, x, y, name):
+    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, name: str):
         self.name = name
         self.image = image
         self.image = pygame.transform.scale_by(self.image, SCALE)

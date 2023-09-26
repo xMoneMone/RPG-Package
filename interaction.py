@@ -1,9 +1,12 @@
+from character import Character
+from room import Room
+
 interactions = {
 
 }
 
 
-def interacting_with(player, room):
+def interacting_with(player: Character, room: Room):
     collide_direction = None
     if player.direction == "up":
         collide_direction = player.rectangle.midtop
@@ -19,5 +22,5 @@ def interacting_with(player, room):
             return asset.name
 
 
-def execute_interaction(all_interactions, player, room):
+def execute_interaction(all_interactions: dict, player: Character, room: Room):
     all_interactions[interacting_with(player, room)]()
