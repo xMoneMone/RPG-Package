@@ -4,8 +4,9 @@ from center_asset import CenterAsset
 
 
 class CollisionAsset:
-    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, name: str):
+    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, name: str, text: str = ""):
         self.name = name
+        self.text = text
         self.image = image
         self.image = pygame.transform.scale_by(self.image, SCALE)
         self.image.set_colorkey(COLOURKEY)

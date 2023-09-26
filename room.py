@@ -7,7 +7,6 @@ from collision_asset import CollisionAsset
 from constants import SCALE, COLLISION_MARGIN
 
 
-
 class Room:
     def __init__(self, paths: namedtuple, player):
         self.background_color = (255, 255, 255)
@@ -40,39 +39,44 @@ class Room:
         with open(paths.json) as f:
             data = json.load(f)
 
-            self.background_color = data["background_color"]
+            with open(paths.text) as r_text:
+                text = json.load(r_text)
 
-            if "background" in data["center"]:
-                background_image = pygame.image.load(fr"{paths.assets}\background.png")
-                self.background = CenterAsset(background_image)
+                self.background_color = data["background_color"]
 
-            if "frame" in data["center"]:
-                frame_image = pygame.image.load(fr"{paths.assets}\frame.png")
-                self.frame = CenterAsset(frame_image)
+                if "background" in data["center"]:
+                    background_image = pygame.image.load(fr"{paths.assets}\background.png")
+                    self.background = CenterAsset(background_image)
 
-            for asset in data["light"]:
-                light_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
-                for asset_instance in data["light"][asset]:
-                    self.light.append(
-                        NoCollisionAsset(self.background, light_image, asset_instance[0],
-                                         asset_instance[1]))
+                if "frame" in data["center"]:
+                    frame_image = pygame.image.load(fr"{paths.assets}\frame.png")
+                    self.frame = CenterAsset(frame_image)
 
-            for asset in data["no-collision"]:
-                no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
-                for asset_instance in data["no-collision"][asset]:
-                    self.non_collidables.append(
-                        NoCollisionAsset(self.background, no_col_image, asset_instance[0],
-                                         asset_instance[1]))
+                for asset in data["light"]:
+                    light_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
+                    for asset_instance in data["light"][asset]:
+                        self.light.append(
+                            NoCollisionAsset(self.background, light_image, asset_instance[0],
+                                             asset_instance[1]))
 
-            for asset in data["collision"]:
-                no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
-                for asset_instance in data["collision"][asset]:
-                    name = asset
-                    if len(asset_instance) == 3:
-                        name = asset_instance[2]
-                    self.collidables.append(
-                        CollisionAsset(self.background, no_col_image, asset_instance[0],
-                                       asset_instance[1], name))
+                for asset in data["no-collision"]:
+                    no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
+                    for asset_instance in data["no-collision"][asset]:
+                        self.non_collidables.append(
+                            NoCollisionAsset(self.background, no_col_image, asset_instance[0],
+                                             asset_instance[1]))
+
+                for asset in data["collision"]:
+                    no_col_image = pygame.image.load(fr"{paths.assets}\{asset}.png")
+                    for asset_instance in data["collision"][asset]:
+                        name = asset
+                        if len(asset_instance) == 3:
+                            name = asset_instance[2]
+                        self.collidables.append(
+                            CollisionAsset(self.background, no_col_image, asset_instance[0],
+                                           asset_instance[1], name))
+                        if asset in text:
+                            self.collidables[-1].text = text[asset]
 
             player.rectangle.x = self.background.x + data["player_start"][0] * SCALE
             player.rectangle.y = self.background.y + data["player_start"][1] * SCALE

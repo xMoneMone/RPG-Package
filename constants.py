@@ -23,8 +23,9 @@ CHARACTER_FRAMES_DIR = r"graphics\character_frames"
 COLLISION_MARGIN = 10
 
 # rooms
-Room = namedtuple('Room', ['json', 'assets'])
+Room = namedtuple('Room', ['json', 'assets', 'text'])
 ROOM_PATHS = {
     'house_outside': Room(json=r"json_files\house_outside\coordinates.json",
-                          assets=r"graphics\room_assets\house_outside")
+                          assets=r"graphics\room_assets\house_outside",
+                          text=r"json_files\house_outside\interaction_text.json")
 }
