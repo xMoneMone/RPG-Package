@@ -7,19 +7,21 @@ interactions = {
 
 
 def interacting_with(player: Character, room: Room):
-    collide_direction = None
-    if player.direction == player.settings.UP:
-        collide_direction = player.rectangle.midtop
-    elif player.direction == player.settings.LEFT:
-        collide_direction = player.rectangle.midleft
-    elif player.direction == player.settings.DOWN:
-        collide_direction = player.rectangle.midbottom
-    elif player.direction == player.settings.RIGHT:
-        collide_direction = player.rectangle.midright
-
+    all_colliding = []
     for asset in room.collidables:
-        if asset.rectangle.collidepoint(collide_direction):
-            return asset
+        if player.rectangle.colliderect(asset.rectangle):
+            all_colliding.append(asset)
+
+    if player.direction == player.settings.UP:
+        all_colliding = sorted(all_colliding, key=lambda x: abs(x.rectangle.bottom - player.rectangle.midtop[1]))
+    elif player.direction == player.settings.LEFT:
+        all_colliding = sorted(all_colliding, key=lambda x: abs(x.rectangle.right - player.rectangle.midtop[0]))
+    elif player.direction == player.settings.DOWN:
+        all_colliding = sorted(all_colliding, key=lambda x: abs(x.rectangle.top - player.rectangle.midtop[1]))
+    elif player.direction == player.settings.RIGHT:
+        all_colliding = sorted(all_colliding, key=lambda x: abs(x.rectangle.left - player.rectangle.midtop[0]))
+
+    return all_colliding[0]
 
 
 def execute_interaction(player: Character, room: Room):
