@@ -1,3 +1,8 @@
+interactions = {
+
+}
+
+
 def interacting_with(player, room):
     collide_direction = None
     if player.direction == "up":
@@ -12,3 +17,7 @@ def interacting_with(player, room):
     for asset in room.collidables:
         if asset.rectangle.collidepoint(collide_direction):
             return asset.name
+
+
+def execute_interaction(all_interactions, player, room):
+    all_interactions[interacting_with(player, room)]()
