@@ -10,6 +10,8 @@ SCALE = 2
 COLOURKEY = (255, 75, 248)
 SCREEN_WIDTH = pygame.display.Info().current_w
 SCREEN_HEIGHT = pygame.display.Info().current_h
+ICON = r"graphics\character_frames\down-1.png"
+CAPTION = "Game"
 
 # player
 clock = pygame.time.Clock()

@@ -1,7 +1,7 @@
 import pygame
 
 from character import Character
-from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, ROOM_PATHS
+from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, ROOM_PATHS, CAPTION, ICON, COLOURKEY
 from room import Room
 
 
@@ -9,12 +9,14 @@ def main():
     pygame.init()
 
     game_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Game")
+    pygame.display.set_caption(CAPTION)
+    icon = pygame.image.load(ICON)
+    icon.set_colorkey(COLOURKEY)
+    pygame.display.set_icon(icon)
 
     clock = pygame.time.Clock()
 
     player = Character(200, 300, game_screen)
-
     current_room = Room(ROOM_PATHS['house_outside'], player)
 
     while True:
