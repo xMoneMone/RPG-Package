@@ -2,9 +2,8 @@ import pygame
 from constants import SCALE, COLOURKEY
 
 
-class CollisionAsset(pygame.sprite.Sprite):
+class CollisionAsset:
     def __init__(self, background, image, x, y, name):
-        pygame.sprite.Sprite.__init__(self)
         self.name = name
         self.image = image
         self.image = pygame.transform.scale_by(self.image, SCALE)
