@@ -3,10 +3,11 @@ import os
 from animation import Animation
 from collisions import colliding
 from room import Room
+from dialogue import Dialogue
 
 
 class Character:
-    def __init__(self, pos_x: int, pos_y: int, game_settings, player_settings):
+    def __init__(self, pos_x: int, pos_y: int, game_settings, player_settings, dialogue: Dialogue = None):
         self.settings = player_settings
         self.game_settings = game_settings
         self.moving_character_frames = {
@@ -25,6 +26,9 @@ class Character:
         self.direction = self.settings.DOWN
         self.animation = Animation(self.settings.ANIMATION_SPEED)
         self.image = self.still_character_frames[self.settings.DOWN]
+        self.dialogue = None
+        if dialogue:
+            self.dialogue = dialogue
 
     def load_character_animation(self):
         for name in os.listdir(self.settings.FRAMES_DIR):
@@ -59,6 +63,10 @@ class Character:
             self.direction = self.settings.RIGHT
 
     def movement(self, room: Room):
+        if self.dialogue:
+            if self.dialogue.open:
+                return
+
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_LEFT] or pressed[pygame.K_DOWN] or pressed[pygame.K_UP] or \

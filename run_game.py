@@ -24,7 +24,10 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                     exit()
                 if evnt.key == pygame.K_SPACE:
                     if player:
-                        execute_interaction(player, room, interactions)
+                        if not execute_interaction(player, room, interactions):
+                            if player.dialogue:
+                                if player.dialogue.open:
+                                    player.dialogue.open = False
 
         if player:
             player.movement(room)

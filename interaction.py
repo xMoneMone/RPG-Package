@@ -37,5 +37,9 @@ def execute_interaction(player: Character, room: Room, interactions: dict = None
         if interactions:
             if asset.name in interactions:
                 interactions[asset.name]()
+                return True
         elif asset.text:
             print(asset.text)
+            if player.dialogue:
+                player.dialogue.open = not player.dialogue.open
+            return True
