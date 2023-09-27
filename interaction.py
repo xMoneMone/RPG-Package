@@ -43,11 +43,11 @@ def execute_interaction(player, room: Room, interactions: dict = None):
     if asset:
         if interactions:
             if asset.name in interactions:
-                interactions[asset.name].functionality(asset)
-                return True
-        elif asset.text:
-            print(asset.text['text'])
-            if player.dialogue and not player.dialogue.open:
+                return interactions[asset.name].functionality(asset)
+            elif "default" in interactions:
+                return interactions["default"].functionality(asset)
+        else:
+            if player.dialogue:
                 return player.dialogue.functionality(asset)
 
 

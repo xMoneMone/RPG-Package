@@ -27,7 +27,7 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                     exit()
                 if evnt.key == pygame.K_SPACE:
                     if player:
-                        interaction_screen = execute_interaction(player, room)
+                        interaction_screen = execute_interaction(player, room, interactions)
                         if not interaction_screen:
                             for instance in Interaction.instances:
                                 if instance.open and instance.finished:

@@ -60,4 +60,4 @@ class Room:
                             StaticObject(self.background, no_col_image, asset_instance[0],
                                          asset_instance[1], self.game_settings, name=name))
                         if asset in text:
-                            self.collidables[-1].text = text[asset]
+                            self.collidables[-1].text = text[name]

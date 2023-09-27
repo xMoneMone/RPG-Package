@@ -38,6 +38,10 @@ class Dialogue(Interaction):
 
     def functionality(self, asset: StaticObject):
         asset_dialogue = asset.text
+
+        if not asset_dialogue or self.open:
+            return
+
         self.open = True
         surface = pygame.Surface((self.settings.SCREEN_WIDTH, self.settings.SCREEN_HEIGHT))
         surface.fill(self.settings.COLOURKEY)
