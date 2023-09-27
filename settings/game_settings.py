@@ -1,9 +1,6 @@
-import pygame
-
-
 class GameSettings:
-    def __init__(self, icon_path, fps=60, scale=1, colourkey=(255, 255, 255),
-                 width=220, height=220, caption="Game"):
+    def __init__(self, icon_path, fps=60, scale=1, colourkey=(255, 255, 255), width=220, height=220, caption="Game",
+                 portrait_scaling=None, textbox_scaling=None):
         self.FPS = fps
         self.SCALE = scale
         self.COLOURKEY = colourkey
@@ -11,3 +8,9 @@ class GameSettings:
         self.SCREEN_HEIGHT = height
         self.ICON = icon_path
         self.CAPTION = caption
+        self.PORTRAIT_SCALE = scale
+        if portrait_scaling:
+            self.PORTRAIT_SCALE = portrait_scaling
+        self.TEXTBOX_SCALE = scale
+        if textbox_scaling:
+            self.TEXTBOX_SCALE = textbox_scaling

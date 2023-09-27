@@ -13,9 +13,7 @@ def main():
                                  width=pygame.display.Info().current_w, height=pygame.display.Info().current_h)
     player_settings = PlayerSettings(r"graphics\character_frames")
     player = Character(960, 600, game_settings, player_settings,
-                       Dialogue(r"graphics\dialogue\textbox.png", game_settings,
-                                portraits_path=r"graphics\dialogue\player\portraits", portrait_right=True,
-                                margin_bottom=15))
+                       Dialogue(r"graphics\dialogue\textbox.png", game_settings))
     current_room = Room("house_outside", r"json_files\house_outside\coordinates.json",
                         r"json_files\house_outside\interaction_text.json",
                         r"graphics\room_assets\house_outside", game_settings)
