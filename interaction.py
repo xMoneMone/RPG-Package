@@ -1,5 +1,8 @@
+import pygame
+
 from room import Room
 import weakref
+from static_object import StaticObject
 
 
 def interacting_with(player, room: Room):
@@ -40,12 +43,12 @@ def execute_interaction(player, room: Room, interactions: dict = None):
     if asset:
         if interactions:
             if asset.name in interactions:
-                interactions[asset.name]()
+                interactions[asset.name].functionality(asset)
                 return True
         elif asset.text:
             print(asset.text['text'])
             if player.dialogue and not player.dialogue.open:
-                return player.dialogue.draw(asset.text)
+                return player.dialogue.functionality(asset)
 
 
 class Interaction:
@@ -56,5 +59,5 @@ class Interaction:
         self.open = False
         self.finished = True
 
-    def functionality(self, screen):
+    def functionality(self, asset: StaticObject) -> pygame.Surface:
         pass

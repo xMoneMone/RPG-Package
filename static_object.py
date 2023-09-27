@@ -4,7 +4,7 @@ from center_asset import CenterAsset
 
 class StaticObject:
     def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, game_settings, name: str = "",
-                 text: str = ""):
+                 text: dict = None):
         self.name = name
         self.text = text
         self.image = image

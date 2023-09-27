@@ -2,6 +2,7 @@ import pygame
 import os
 from settings import GameSettings
 from interaction import Interaction
+from static_object import StaticObject
 
 
 class Dialogue(Interaction):
@@ -35,8 +36,8 @@ class Dialogue(Interaction):
                 image.set_colorkey(self.settings.COLOURKEY)
                 self.portraits[name] = image
 
-# MAKE IT SO EVERY INSTANCE TAKES ONLY ASSET AND MAKES ITS OWN SURFACE TO RETURN TO BE BLIT
-    def draw(self, asset_dialogue: dict):
+    def functionality(self, asset: StaticObject):
+        asset_dialogue = asset.text
         self.open = True
         surface = pygame.Surface((self.settings.SCREEN_WIDTH, self.settings.SCREEN_HEIGHT))
         surface.fill(self.settings.COLOURKEY)
@@ -49,4 +50,3 @@ class Dialogue(Interaction):
                     surface.blit(self.portraits["default"], (self.portrait_x, self.portrait_y))
         surface.set_colorkey(self.settings.COLOURKEY)
         return surface
-
