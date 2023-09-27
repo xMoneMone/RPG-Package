@@ -1,8 +1,12 @@
-from character import Character
 from room import Room
+import weakref
 
 
-def interacting_with(player: Character, room: Room):
+def interacting_with(player, room: Room):
+    if player.direction in (
+            player.settings.UP_LEFT, player.settings.UP_RIGHT, player.settings.DOWN_LEFT, player.settings.DOWN_RIGHT):
+        return
+
     all_colliding = []
     collide_direction = None
 
@@ -30,7 +34,7 @@ def interacting_with(player: Character, room: Room):
         return all_colliding[0]
 
 
-def execute_interaction(player: Character, room: Room, interactions: dict = None):
+def execute_interaction(player, room: Room, interactions: dict = None):
     asset = interacting_with(player, room)
 
     if asset:
@@ -39,7 +43,18 @@ def execute_interaction(player: Character, room: Room, interactions: dict = None
                 interactions[asset.name]()
                 return True
         elif asset.text:
-            print(asset.text)
-            if player.dialogue:
-                player.dialogue.open = not player.dialogue.open
-            return True
+            print(asset.text['text'])
+            if player.dialogue and not player.dialogue.open:
+                return player.dialogue.draw(asset.text)
+
+
+class Interaction:
+    instances = weakref.WeakSet()
+
+    def __init__(self):
+        self.__class__.instances.add(self)
+        self.open = False
+        self.finished = True
+
+    def functionality(self, screen):
+        pass

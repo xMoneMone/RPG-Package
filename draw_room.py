@@ -1,4 +1,5 @@
 import pygame
+from interaction import execute_interaction, Interaction
 
 
 def check_height(x, player=None):
@@ -33,5 +34,3 @@ def draw_room(room, screen: pygame.Surface, player=None):
         screen.blit(light.image, (light.x, light.y), special_flags=pygame.BLEND_ADD)
     if room.frame:
         screen.blit(room.frame.image, (room.frame.x, room.frame.y))
-
-    player.dialogue.draw(screen)

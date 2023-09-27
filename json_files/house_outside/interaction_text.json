@@ -1,11 +1,25 @@
 {
-"left-fence": "Can't pass thorugh.",
-"right-fence": "Can't pass thorugh.",
-"log_bottom": "Chop chop chop.",
-"blue-flower_bottom": "Pretty flower.",
-"yellow-flower_bottom": "Pretty flower.",
-"pink-flower_bottom": "Pretty flower.",
-"house": "Nestled deep within the whispering woods, my humble cottage stands as a sanctuary of creativity. Its timeworn walls embrace the musings of my soul, as the dappled sunlight dances through the canopy, inspiring my artistic endeavors.",
-"easel_bottom": "My latest project. It is a painting of a woman I think is very hot.",
-"notch": "Huh?"
+"left-fence": {
+    "text": "Can't pass thorugh.",
+    "emotion": "tsun"},
+"right-fence": {
+    "text": "Can't pass thorugh.",
+    "emotion": "tsun"},
+"log_bottom": {
+    "text": "Chop chop chop."},
+"blue-flower_bottom": {
+    "text": "Pretty flower.",
+    "emotion": "happy"},
+"yellow-flower_bottom": {
+    "text": "Pretty flower.",
+    "emotion": "happy"},
+"pink-flower_bottom": {
+    "text": "Pretty flower.",
+    "emotion": "happy"},
+"house": {
+    "text": "Nestled deep within the whispering woods, my humble cottage stands as a sanctuary of creativity. Its timeworn walls embrace the musings of my soul, as the dappled sunlight dances through the canopy, inspiring my artistic endeavors."},
+"easel_bottom": {
+    "text": "My latest project. It is a painting of a woman I think is very hot."},
+"notch": {
+    "text": "Huh?"}
 }

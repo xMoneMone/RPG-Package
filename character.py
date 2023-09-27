@@ -4,6 +4,7 @@ from animation import Animation
 from collisions import colliding
 from room import Room
 from dialogue import Dialogue
+from interaction import Interaction
 
 
 class Character:
@@ -63,9 +64,8 @@ class Character:
             self.direction = self.settings.RIGHT
 
     def movement(self, room: Room):
-        if self.dialogue:
-            if self.dialogue.open:
-                return
+        if any([x.open for x in Interaction.instances]):
+            return
 
         pressed = pygame.key.get_pressed()
 

@@ -1,13 +1,14 @@
 import pygame
 import os
 from settings import GameSettings
+from interaction import Interaction
 
 
-class Dialogue:
+class Dialogue(Interaction):
     def __init__(self, textbox_path: str, game_settings: GameSettings, margin_bottom=0,
                  margin_left=0, margin_right=0, portrait_right=False, portrait_margin_bottom=0,
                  portrait_margin_left=0, portrait_margin_right=0, portraits_path: str = None):
-        self.open = False
+        super().__init__()
         self.settings = game_settings
         self.textbox = pygame.image.load(textbox_path)
         self.textbox = pygame.transform.scale_by(self.textbox, self.settings.SCALE)
@@ -34,8 +35,18 @@ class Dialogue:
                 image.set_colorkey(self.settings.COLOURKEY)
                 self.portraits[name] = image
 
-    def draw(self, screen: pygame.Surface, emotion: str = "default"):
+# MAKE IT SO EVERY INSTANCE TAKES ONLY ASSET AND MAKES ITS OWN SURFACE TO RETURN TO BE BLIT
+    def draw(self, asset_dialogue: dict):
+        self.open = True
+        surface = pygame.Surface((self.settings.SCREEN_WIDTH, self.settings.SCREEN_HEIGHT))
+        surface.fill(self.settings.COLOURKEY)
         if self.open:
-            screen.blit(self.textbox, (self.textbox_x, self.textbox_y))
+            surface.blit(self.textbox, (self.textbox_x, self.textbox_y))
             if self.portraits:
-                screen.blit(self.portraits[emotion], (self.portrait_x, self.portrait_y))
+                if "emotion" in asset_dialogue:
+                    surface.blit(self.portraits[asset_dialogue["emotion"]], (self.portrait_x, self.portrait_y))
+                else:
+                    surface.blit(self.portraits["default"], (self.portrait_x, self.portrait_y))
+        surface.set_colorkey(self.settings.COLOURKEY)
+        return surface
+
