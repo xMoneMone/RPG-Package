@@ -20,18 +20,23 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
     clock = pygame.time.Clock()
 
     while True:
-        for evnt in pygame.event.get():
-            if evnt.type == pygame.KEYDOWN:
-                if evnt.key == pygame.K_ESCAPE:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
-                if evnt.key == pygame.K_SPACE:
-                    if player:
-                        interaction_screen = execute_interaction(player, room, interactions)
-                        if not interaction_screen:
-                            for instance in Interaction.instances:
-                                if instance.open and instance.finished:
-                                    instance.open = False
+                if event.key == pygame.K_SPACE:
+                    interaction_screen = execute_interaction(room, interactions, player)
+                    if not interaction_screen:
+                        for instance in Interaction.instances:
+                            if instance.open and instance.finished:
+                                instance.open = False
+            if event.type == pygame.MOUSEBUTTONUP:
+                interaction_screen = execute_interaction(room, interactions, player)
+                if not interaction_screen:
+                    for instance in Interaction.instances:
+                        if instance.open and instance.finished:
+                            instance.open = False
 
         if player:
             player.movement(room)
