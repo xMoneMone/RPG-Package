@@ -27,8 +27,6 @@ class Dialogue(Interaction):
         self.font_x = self.textbox_x + font_padding_horizontal
         self.font_y = self.textbox_y + font_padding_vertical
         self.allowed_text_width = self.textbox.get_width() - font_padding_horizontal
-        print(self.textbox.get_width())
-        print(self.allowed_text_width)
         self.line_spacing = self.font.size("Tg")[1]
         if line_spacing:
             self.line_spacing = line_spacing
@@ -40,7 +38,7 @@ class Dialogue(Interaction):
                 self.portrait_x += self.textbox.get_width()
             self.portrait_y = game_settings.SCREEN_HEIGHT - self.portraits[
                 list(self.portraits.keys())[0]].get_height() - portrait_margin_bottom
-            self.allowed_text_width -= 0
+            self.allowed_text_width -= self.portraits[list(self.portraits.keys())[0]].get_width() // 2
 
     def load_portrait(self, portraits_path):
         for name in os.listdir(portraits_path):
@@ -53,40 +51,36 @@ class Dialogue(Interaction):
                 self.portraits[name] = image
 
     def text_split(self, text):
-        text_list = list(text)
-        characters_per_line = 70
+        text_list = text.split(" ")
         split_lines = []
-        last_space_index = 0
+        space_width = self.font.size(" ")[1]
+        current_line = ""
 
-        while text_list:
-            for index, char in enumerate(text_list):
-                if char == " ":
-                    last_space_index = index
-                if index == characters_per_line:
-                    if last_space_index:
-                        split_lines.append("".join(text_list[0:last_space_index + 1]))
-                        del text_list[0:last_space_index + 1]
-                        last_space_index = 0
-                        break
-                    else:
-                        split_lines.append("".join(text_list[0:index + 1]))
-                        del text_list[0:index + 1]
-                        last_space_index = 0
-                        break
-                elif index == len(text_list) - 1:
-                    split_lines.append("".join(text_list))
-                    text_list = []
-                    last_space_index = 0
+        for index, word in enumerate(text_list):
+            word_width = self.font.size(word)[0]
+            current_line_width = self.font.size(current_line)[0]
+            if current_line_width + space_width + word_width >= self.allowed_text_width or word == "\n":
+                split_lines.append(current_line.strip())
+                current_line = word
+                if index + 1 == len(text_list):
+                    split_lines.append(current_line.strip())
+                    break
+            elif index + 1 == len(text_list):
+                current_line += " " + word
+                split_lines.append(current_line.strip())
+            else:
+                current_line += " " + word
 
         return split_lines
 
     def functionality(self, asset: StaticObject):
         asset_dialogue = asset.text
-        split_text = self.text_split(asset_dialogue['text'])
         text_y = self.font_y
 
         if not asset_dialogue or self.open:
             return
+
+        split_text = self.text_split(asset_dialogue['text'])
 
         text_surface = self.font.render(asset_dialogue['text'], self.antialiasing, self.font_color,
                                         self.settings.COLOURKEY)
