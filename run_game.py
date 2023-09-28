@@ -27,16 +27,8 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                     exit()
                 if event.key == pygame.K_SPACE:
                     interaction_screen = execute_interaction(room, interactions, player)
-                    if not interaction_screen:
-                        for instance in Interaction.instances:
-                            if instance.open and instance.finished:
-                                instance.open = False
             if event.type == pygame.MOUSEBUTTONUP:
                 interaction_screen = execute_interaction(room, interactions, player)
-                if not interaction_screen:
-                    for instance in Interaction.instances:
-                        if instance.open and instance.finished:
-                            instance.open = False
 
         if player:
             player.movement(room)

@@ -28,6 +28,7 @@ class Dialogue(Interaction):
         self.font_y = self.textbox_y + font_padding_vertical
         self.allowed_text_width = self.textbox.get_width() - font_padding_horizontal
         self.line_spacing = self.font.size("Tg")[1]
+        self.dialogue_part = -1
         if line_spacing:
             self.line_spacing = line_spacing
         if portraits_path:
@@ -79,12 +80,26 @@ class Dialogue(Interaction):
         asset_dialogue = asset.text
         text_y = self.font_y
 
-        if not asset_dialogue or self.open:
+        if not asset_dialogue:
             return
 
-        split_text = self.text_split(asset_dialogue['text'])
+        self.finished = False
 
-        text_surface = self.font.render(asset_dialogue['text'], self.antialiasing, self.font_color,
+        pressed = pygame.key.get_pressed()
+
+        if pressed[pygame.K_SPACE]:
+            if self.dialogue_part == len(asset_dialogue['text']) - 1:
+                self.finished = True
+                self.open = False
+                self.dialogue_part = -1
+                return 
+            else:
+                self.dialogue_part += 1
+
+        line = asset_dialogue['text'][self.dialogue_part]
+        split_text = self.text_split(line)
+
+        text_surface = self.font.render(line, self.antialiasing, self.font_color,
                                         self.settings.COLOURKEY)
         text_surface.set_colorkey(self.settings.COLOURKEY)
         text_rectangle = text_surface.get_rect()

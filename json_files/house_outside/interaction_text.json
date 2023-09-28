@@ -1,25 +1,25 @@
 {
 "left-fence": {
-    "text": "Can't pass thorugh.",
+    "text": ["Can't pass thorugh."],
     "emotion": "tsun"},
 "right-fence": {
-    "text": "Can't pass thorugh.",
+    "text": ["Can't pass thorugh."],
     "emotion": "tsun"},
 "log_bottom": {
-    "text": "Chop chop chop."},
+    "text": ["Chop chop chop."]},
 "blue-flower_bottom": {
-    "text": "Lost in the twilight's \n embrace, my cottage stands adorned with nature's brushstrokes. Within its walls, art dances with the whispers of the forest, creating a symphony of inspiration.",
+    "text": ["Lost in the twilight's \n embrace, my cottage stands adorned with nature's brushstrokes. Within its walls, art dances with the whispers of the forest, creating a symphony of inspiration.", "1", "2", "3", "many"],
     "emotion": "happy"},
 "yellow-flower_bottom": {
-    "text": "i am aaa.",
+    "text": ["i am aaa."],
     "emotion": "happy"},
 "house": {
-    "text": "Westled deep within the whispering woods, my humble cottage stands as a sanctuary of creativity. Its timeworn walls embrace the musings of my soul, as the dappled sunlight dances through the canopy, inspiring my artistic endeavors."},
+    "text": ["Westled deep within the whispering woods, my humble cottage stands as a sanctuary of creativity. Its timeworn walls embrace the musings of my soul, as the dappled sunlight dances through the canopy, inspiring my artistic endeavors.", "Hehe house"]},
 "easel_bottom": {
-    "text": "My latest project. It is a painting of a woman I think is very hot."},
+    "text": ["My latest project. It is a painting of a woman I think is very hot."]},
 "notch": {
-    "text": "Huh?"},
+    "text": ["Huh?"]},
 "special": {
-    "text": "Whaaa.",
+    "text": ["Whaaa."],
     "emotion": "tsun"}
 }
