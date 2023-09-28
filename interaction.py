@@ -5,10 +5,22 @@ import weakref
 from static_object import StaticObject
 
 
+class Interaction:
+    instances = weakref.WeakSet()
+
+    def __init__(self):
+        self.__class__.instances.add(self)
+        self.open = False
+
+    def functionality(self, asset: StaticObject) -> pygame.Surface:
+        pass
+
+
 def interacting_with(room: Room, player=None):
     if player:
         if player.direction in (
-                player.settings.UP_LEFT, player.settings.UP_RIGHT, player.settings.DOWN_LEFT, player.settings.DOWN_RIGHT):
+                player.settings.UP_LEFT, player.settings.UP_RIGHT, player.settings.DOWN_LEFT,
+                player.settings.DOWN_RIGHT):
             return
 
         all_colliding = []
@@ -45,6 +57,9 @@ def interacting_with(room: Room, player=None):
 def execute_interaction(room: Room, interactions: dict = None, player=None):
     asset = interacting_with(room, player)
 
+    if open_interactions := [x for x in Interaction.instances if x.open]:
+        return open_interactions[0].functionality(asset)
+
     if asset:
         if interactions:
             if asset.name in interactions:
@@ -54,15 +69,3 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
         elif player:
             if player.dialogue:
                 return player.dialogue.functionality(asset)
-
-
-class Interaction:
-    instances = weakref.WeakSet()
-
-    def __init__(self):
-        self.__class__.instances.add(self)
-        self.open = False
-        self.finished = True
-
-    def functionality(self, asset: StaticObject) -> pygame.Surface:
-        pass

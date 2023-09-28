@@ -29,7 +29,7 @@ class Dialogue(Interaction):
         self.allowed_text_width = self.textbox.get_width() - font_padding_horizontal
         self.line_spacing = self.font.size("Tg")[1]
         self.dialogue_part = -1
-        self.current_last_part = 0
+        self.open_asset = None
         if line_spacing:
             self.line_spacing = line_spacing
         if portraits_path:
@@ -82,25 +82,22 @@ class Dialogue(Interaction):
         return split_lines
 
     def functionality(self, asset: StaticObject):
-        asset_dialogue = asset.text
+        if not self.open:
+            self.open_asset = asset
+
+        asset_dialogue = self.open_asset.text
         text_y = self.font_y
-        self.current_last_part = len(asset_dialogue)
 
         if not asset_dialogue:
+            self.dialogue_part = -1
             return
 
-        self.finished = False
-
-        pressed = pygame.key.get_pressed()
-
-        if pressed[pygame.K_SPACE]:
-            if self.dialogue_part == len(asset_dialogue) - 1:
-                self.finished = True
-                self.open = False
-                self.dialogue_part = -1
-                return
-            else:
-                self.dialogue_part += 1
+        if self.dialogue_part == len(asset_dialogue) - 1:
+            self.open = False
+            self.dialogue_part = -1
+            return
+        else:
+            self.dialogue_part += 1
 
         line = asset_dialogue[self.dialogue_part][0]
         split_text = self.text_split(line)
