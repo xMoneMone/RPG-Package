@@ -1,25 +1,33 @@
 {
-"left-fence": {
-    "text": ["Can't pass thorugh."],
-    "emotion": "tsun"},
-"right-fence": {
-    "text": ["Can't pass thorugh."],
-    "emotion": "tsun"},
-"log_bottom": {
-    "text": ["Chop chop chop."]},
-"blue-flower_bottom": {
-    "text": ["Lost in the twilight's \n embrace, my cottage stands adorned with nature's brushstrokes. Within its walls, art dances with the whispers of the forest, creating a symphony of inspiration.", "1", "2", "3", "many"],
-    "emotion": "happy"},
-"yellow-flower_bottom": {
-    "text": ["i am aaa."],
-    "emotion": "happy"},
-"house": {
-    "text": ["Westled deep within the whispering woods, my humble cottage stands as a sanctuary of creativity. Its timeworn walls embrace the musings of my soul, as the dappled sunlight dances through the canopy, inspiring my artistic endeavors.", "Hehe house"]},
-"easel_bottom": {
-    "text": ["My latest project. It is a painting of a woman I think is very hot."]},
-"notch": {
-    "text": ["Huh?"]},
-"special": {
-    "text": ["Whaaa."],
-    "emotion": "tsun"}
+"left-fence": [
+    ["Can't pass thorugh.", "tsun"]
+],
+"right-fence": [
+    ["Can't pass thorugh.", "tsun"]
+],
+"log_bottom": [
+    ["Chop chop chop."]
+],
+"blue-flower_bottom": [
+    ["Lost in the twilight's \n embrace, my cottage stands adorned with nature's brushstrokes. Within its walls, art dances with the whispers of the forest, creating a symphony of inspiration.", "happy"],
+    ["1"],
+    ["2"],
+    ["3"],
+    ["many"]],
+"yellow-flower_bottom": [
+    ["i am aaa.", "happy"]
+],
+"house": [
+    ["Westled deep within the whispering woods, my humble cottage stands as a sanctuary of creativity. Its timeworn walls embrace the musings of my soul, as the dappled sunlight dances through the canopy, inspiring my artistic endeavors."],
+    ["Hehe house", "happy"]
+],
+"easel_bottom": [
+    ["My latest project. It is a painting of a woman I think is very hot."]
+],
+"notch": [
+    ["Huh?"]
+],
+"special": [
+    ["Whaaa.", "tsun"]
+]
 }

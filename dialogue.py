@@ -86,17 +86,18 @@ class Dialogue(Interaction):
         self.finished = False
 
         pressed = pygame.key.get_pressed()
+        pygame.event.get()
 
-        if pressed[pygame.K_SPACE]:
-            if self.dialogue_part == len(asset_dialogue['text']) - 1:
+        if pressed[pygame.K_SPACE] or pygame.mouse.get_pressed()[0]:
+            if self.dialogue_part == len(asset_dialogue) - 1:
                 self.finished = True
                 self.open = False
                 self.dialogue_part = -1
-                return 
+                return
             else:
                 self.dialogue_part += 1
 
-        line = asset_dialogue['text'][self.dialogue_part]
+        line = asset_dialogue[self.dialogue_part][0]
         split_text = self.text_split(line)
 
         text_surface = self.font.render(line, self.antialiasing, self.font_color,
@@ -111,8 +112,9 @@ class Dialogue(Interaction):
         if self.open:
             surface.blit(self.textbox, (self.textbox_x, self.textbox_y))
             if self.portraits:
-                if "emotion" in asset_dialogue:
-                    surface.blit(self.portraits[asset_dialogue["emotion"]], (self.portrait_x, self.portrait_y))
+                if len(asset_dialogue[self.dialogue_part]) == 2:
+                    surface.blit(self.portraits[asset_dialogue[self.dialogue_part][1]],
+                                 (self.portrait_x, self.portrait_y))
                 else:
                     surface.blit(self.portraits["default"], (self.portrait_x, self.portrait_y))
 

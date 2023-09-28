@@ -3,7 +3,6 @@ from settings import GameSettings
 from room import Room
 from interaction import execute_interaction
 from draw_room import draw_room
-from interaction import Interaction
 
 
 def run_game(game_settings: GameSettings, room: Room, interactions=None, player=None):
@@ -27,7 +26,7 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                     exit()
                 if event.key == pygame.K_SPACE:
                     interaction_screen = execute_interaction(room, interactions, player)
-            if event.type == pygame.MOUSEBUTTONUP:
+            if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 interaction_screen = execute_interaction(room, interactions, player)
 
         if player:
