@@ -27,6 +27,8 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                 if event.key == pygame.K_SPACE:
                     interaction_screen = execute_interaction(room, interactions, player)
             if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                if interactions and interactions["default"]:
+                    interactions["default"].mouse_cycle()
                 interaction_screen = execute_interaction(room, interactions, player)
 
         if player:

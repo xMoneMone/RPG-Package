@@ -51,7 +51,7 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
                 return interactions[asset.name].functionality(asset)
             elif "default" in interactions:
                 return interactions["default"].functionality(asset)
-        else:
+        elif player:
             if player.dialogue:
                 return player.dialogue.functionality(asset)
 
