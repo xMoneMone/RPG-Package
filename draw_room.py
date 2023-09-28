@@ -1,5 +1,4 @@
 import pygame
-from interaction import execute_interaction, Interaction
 
 
 def check_height(x, player=None):

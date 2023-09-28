@@ -36,6 +36,8 @@ class Dialogue(Interaction):
                 list(self.portraits.keys())[0]].get_width() // 2 - portrait_margin_left + portrait_margin_right
             if portrait_right:
                 self.portrait_x += self.textbox.get_width()
+            else:
+                self.font_x += self.portraits[list(self.portraits.keys())[0]].get_width() // 2
             self.portrait_y = game_settings.SCREEN_HEIGHT - self.portraits[
                 list(self.portraits.keys())[0]].get_height() - portrait_margin_bottom
             self.allowed_text_width -= self.portraits[list(self.portraits.keys())[0]].get_width() // 2
