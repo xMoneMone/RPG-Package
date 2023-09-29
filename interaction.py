@@ -8,9 +8,10 @@ from static_object import StaticObject
 class Interaction:
     instances = weakref.WeakSet()
 
-    def __init__(self):
+    def __init__(self, priority=1):
         self.__class__.instances.add(self)
         self.open = False
+        self.priority = priority
 
     def functionality(self, asset: StaticObject) -> pygame.Surface:
         pass
@@ -58,6 +59,7 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
     asset = interacting_with(room, player)
 
     if open_interactions := [x for x in Interaction.instances if x.open]:
+        open_interactions.sort(key=lambda x: x.priority, reverse=True)
         return open_interactions[0].functionality(asset)
 
     if asset:
@@ -66,6 +68,9 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
                 return interactions[asset.name].functionality(asset)
             elif "default" in interactions:
                 return interactions["default"].functionality(asset)
+            elif player:
+                if player.dialogue:
+                    return player.dialogue.functionality(asset)
         elif player:
             if player.dialogue:
                 return player.dialogue.functionality(asset)

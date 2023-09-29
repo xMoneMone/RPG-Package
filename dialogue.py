@@ -2,7 +2,6 @@ import pygame
 import os
 from settings import GameSettings
 from interaction import Interaction
-from static_object import StaticObject
 
 
 class Dialogue(Interaction):
@@ -11,8 +10,8 @@ class Dialogue(Interaction):
                  portrait_margin_left=0, portrait_margin_right=0, portraits_path: str = None,
                  font: str = 'freesansbold.ttf', font_size: int = 32, antialiasing: bool = False,
                  font_color: tuple = (0, 0, 0), font_padding_horizontal: int = 30, font_padding_vertical: int = 30,
-                 line_spacing=None):
-        super().__init__()
+                 line_spacing=None, priority=1):
+        super().__init__(priority)
         self.settings = game_settings
         self.textbox = pygame.image.load(textbox_path)
         self.textbox = pygame.transform.scale_by(self.textbox, self.settings.TEXTBOX_SCALE)
@@ -81,11 +80,15 @@ class Dialogue(Interaction):
 
         return split_lines
 
-    def functionality(self, asset: StaticObject):
+    def functionality(self, asset):
         if not self.open:
             self.open_asset = asset
 
-        asset_dialogue = self.open_asset.text
+        asset_dialogue = self.open_asset
+
+        if type(self.open_asset) != list:
+            asset_dialogue = self.open_asset.text
+
         text_y = self.font_y
 
         if not asset_dialogue:

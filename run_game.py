@@ -25,6 +25,7 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                     pygame.quit()
                     exit()
                 if event.key == pygame.K_SPACE:
+                    print("space pressed")
                     interaction_screen = execute_interaction(room, interactions, player)
             if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 interaction_screen = execute_interaction(room, interactions, player)
