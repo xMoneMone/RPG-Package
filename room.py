@@ -1,7 +1,9 @@
 import json
 import pygame
+import os
 from center_asset import CenterAsset
 from static_object import StaticObject
+from animated_object import AnimatedObject
 
 
 class Room:
@@ -51,13 +53,27 @@ class Room:
                                          asset_instance[1], self.game_settings))
 
                 for asset in data["collision"]:
-                    no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
                     for asset_instance in data["collision"][asset]:
-                        name = asset
-                        if len(asset_instance) == 3:
-                            name = asset_instance[2]
-                        self.collidables.append(
-                            StaticObject(self.background, no_col_image, asset_instance[0],
-                                         asset_instance[1], self.game_settings, name=name))
-                        if asset in text:
-                            self.collidables[-1].text = text[name]
+                        if os.path.isdir(fr"{self.assets_path}\{asset}"):
+                            frames = []
+                            for filename in os.listdir(fr"{self.assets_path}\{asset}"):
+                                image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
+                                frames.append(image)
+                            name = asset
+                            if len(asset_instance) == 3:
+                                name = asset_instance[2]
+                            self.collidables.append(
+                                AnimatedObject(self.background, frames, asset_instance[0],
+                                               asset_instance[1], self.game_settings, name=name))
+                            if asset in text:
+                                self.collidables[-1].text = text[name]
+                        else:
+                            col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                            name = asset
+                            if len(asset_instance) == 3:
+                                name = asset_instance[2]
+                            self.collidables.append(
+                                StaticObject(self.background, col_image, asset_instance[0],
+                                             asset_instance[1], self.game_settings, name=name))
+                            if asset in text:
+                                self.collidables[-1].text = text[name]
