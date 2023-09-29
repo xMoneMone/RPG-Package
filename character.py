@@ -8,7 +8,8 @@ from interaction import Interaction
 
 
 class Character:
-    def __init__(self, pos_x: int, pos_y: int, game_settings, player_settings, dialogue: Dialogue = None):
+    def __init__(self, pos_x: int, pos_y: int, game_settings, player_settings, dialogue: Dialogue = None,
+                 diagonal=True):
         self.settings = player_settings
         self.game_settings = game_settings
         self.moving_character_frames = {
@@ -28,6 +29,7 @@ class Character:
         self.animation = Animation(self.settings.ANIMATION_SPEED)
         self.image = self.still_character_frames[self.settings.DOWN]
         self.dialogue = None
+        self.diagonal = diagonal
         if dialogue:
             self.dialogue = dialogue
 
@@ -46,13 +48,17 @@ class Character:
                     self.still_character_frames[name] = image
 
     def change_direction(self, pressed: tuple):
-        if (pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or (pressed[pygame.K_d] and pressed[pygame.K_w]):
+        if (pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or (
+                pressed[pygame.K_d] and pressed[pygame.K_w]) and self.diagonal:
             self.direction = self.settings.UP_RIGHT
-        elif (pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or (pressed[pygame.K_a] and pressed[pygame.K_w]):
+        elif (pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or (
+                pressed[pygame.K_a] and pressed[pygame.K_w]) and self.diagonal:
             self.direction = self.settings.UP_LEFT
-        elif (pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or (pressed[pygame.K_d] and pressed[pygame.K_s]):
+        elif (pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or (
+                pressed[pygame.K_d] and pressed[pygame.K_s]) and self.diagonal:
             self.direction = self.settings.RIGHT
-        elif (pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or (pressed[pygame.K_a] and pressed[pygame.K_s]):
+        elif (pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or (
+                pressed[pygame.K_a] and pressed[pygame.K_s]) and self.diagonal:
             self.direction = self.settings.LEFT
         elif (pressed[pygame.K_DOWN] or pressed[pygame.K_s]) and pressed.count(True) == 1:
             self.direction = self.settings.DOWN
@@ -71,27 +77,28 @@ class Character:
 
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_LEFT] or pressed[pygame.K_DOWN] or pressed[pygame.K_UP] or \
                 pressed[pygame.K_d] or pressed[pygame.K_a] or pressed[pygame.K_s] or pressed[pygame.K_w]:
-            new_image = self.animation.animate(self.moving_character_frames[self.direction])
             self.change_direction(pressed)
-            if ((pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or (
-                    pressed[pygame.K_d] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_RIGHT):
+            if ((pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or
+                (pressed[pygame.K_d] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_RIGHT)\
+                    and self.diagonal:
                 self.direction = self.settings.UP_RIGHT
                 self.rectangle.x += self.settings.DIAGONAL_SPEED
                 self.rectangle.y -= self.settings.DIAGONAL_SPEED
-            elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or (
-                    pressed[pygame.K_a] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_LEFT):
+            elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or
+                  (pressed[pygame.K_a] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_LEFT)\
+                    and self.diagonal:
                 self.direction = self.settings.UP_LEFT
                 self.rectangle.x -= self.settings.DIAGONAL_SPEED
                 self.rectangle.y -= self.settings.DIAGONAL_SPEED
-            elif ((pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or (
-                    pressed[pygame.K_d] and pressed[pygame.K_s])) and not colliding(room, self,
-                                                                                    self.settings.DOWN_RIGHT):
+            elif ((pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or
+                  (pressed[pygame.K_d] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_RIGHT)\
+                    and self.diagonal:
                 self.direction = self.settings.RIGHT
                 self.rectangle.x += self.settings.DIAGONAL_SPEED
                 self.rectangle.y += self.settings.DIAGONAL_SPEED
-            elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or (
-                    pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self,
-                                                                                    self.settings.DOWN_LEFT):
+            elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or
+                  (pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_LEFT)\
+                    and self.diagonal:
                 self.direction = self.settings.LEFT
                 self.rectangle.x -= self.settings.DIAGONAL_SPEED
                 self.rectangle.y += self.settings.DIAGONAL_SPEED
@@ -112,7 +119,10 @@ class Character:
                 self.direction = self.settings.RIGHT
                 self.rectangle.x += self.settings.MOVEMENT_SPEED
 
+            new_image = self.animation.animate(self.moving_character_frames[self.direction])
+
             if new_image:
                 self.image = new_image
         else:
-            self.image = self.still_character_frames[self.direction]
+            if self.direction in self.still_character_frames:
+                self.image = self.still_character_frames[self.direction]

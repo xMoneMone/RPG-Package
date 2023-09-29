@@ -44,7 +44,7 @@ class Cutscene(Interaction):
                 if self.current_part_number == len(self.cutscene):
                     self.open = False
                     self.current_part_number = 0
-                    return 
+                    return
                 return self.functionality(asset)
             if current_dialogue_surface:
                 surface.blit(current_dialogue_surface, (0, 0))

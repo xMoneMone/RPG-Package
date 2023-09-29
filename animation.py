@@ -14,4 +14,5 @@ class Animation:
                 self.frame = -1
             self.frame += 1
             self.last_update = current_time
-            return frames_list[self.frame]
+            if frames_list:
+                return frames_list[self.frame]
