@@ -1,5 +1,4 @@
 {
-  "player_start": [240, 270],
   "background_color": [21,33,17],
   "center": ["background", "frame"],
   "light": {"light": [[0, 0]]},

@@ -1,0 +1,25 @@
+{
+    "background_color": [0,0,0],
+    "center": ["background"],
+    "no-collision": 
+    {
+        "box1-top": [[183, 197]],
+        "box2-top": [[471, 515]],
+        "box3-top": [[957, 1150]],
+        "box4-top": [[1268, 928]],
+        "box5-top": [[1754, 1120]],
+        "box6-top": [[2127, 78]],
+        "door": [[0, 1107]],
+        "back-wall": [[0, 0]]
+    },
+    "collision":
+    {
+        "box1-bottom": [[183, 1312]],
+        "box2-bottom": [[471, 700]],
+        "box3-bottom": [[957, 1298]],
+        "box4-bottom": [[1268, 1004]],
+        "box5-bottom": [[1754, 1351]],
+        "box6-bottom": [[2127, 697]]
+
+    }
+  }
