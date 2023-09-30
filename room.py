@@ -7,7 +7,8 @@ from animated_object import AnimatedObject
 
 
 class Room:
-    def __init__(self, name, coordinates_json_path, interaction_text_json_path, assets_path, game_settings, music_path=""):
+    def __init__(self, name, coordinates_json_path, assets_path, game_settings, interaction_text_json_path="",
+                 music_path=""):
         self.name = name
         self.background_color = (255, 255, 255)
         self.background = None
@@ -39,19 +40,30 @@ class Room:
                     frame_image = pygame.image.load(fr"{self.assets_path}\frame.png")
                     self.frame = CenterAsset(frame_image, self.game_settings)
 
-                for asset in data["light"]:
-                    light_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
-                    for asset_instance in data["light"][asset]:
-                        self.light.append(
-                            StaticObject(self.background, light_image, asset_instance[0],
-                                         asset_instance[1], self.game_settings))
+                if "light" in data:
+                    for asset in data["light"]:
+                        light_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                        for asset_instance in data["light"][asset]:
+                            self.light.append(
+                                StaticObject(self.background, light_image, asset_instance[0],
+                                             asset_instance[1], self.game_settings))
 
                 for asset in data["no-collision"]:
-                    no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
                     for asset_instance in data["no-collision"][asset]:
-                        self.non_collidables.append(
-                            StaticObject(self.background, no_col_image, asset_instance[0],
-                                         asset_instance[1], self.game_settings))
+                        if os.path.isdir(fr"{self.assets_path}\{asset}"):
+                            frames = []
+                            for filename in os.listdir(fr"{self.assets_path}\{asset}"):
+                                image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
+                                frames.append(image)
+                            self.non_collidables.append(
+                                AnimatedObject(self.background, frames, asset_instance[0],
+                                               asset_instance[1], self.game_settings))
+
+                        else:
+                            no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                            self.non_collidables.append(
+                                StaticObject(self.background, no_col_image, asset_instance[0],
+                                             asset_instance[1], self.game_settings))
 
                 for asset in data["collision"]:
                     for asset_instance in data["collision"][asset]:
