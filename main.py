@@ -25,7 +25,7 @@ def main():
     liminal_room = Room("liminal_room", r"json_files\liminal_room\coordinates.json",
                         r"graphics\room_assets\liminal_room", game_settings,
                         interaction_text_json_path=r"json_files\liminal_room\interaction_text.json")
-    current_room = liminal_room
+    current_room = house_outside    
     cutscene_key = {
         "player": player.dialogue,
         "other": Dialogue(r"graphics\dialogue\textbox.png", game_settings,

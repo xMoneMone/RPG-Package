@@ -5,6 +5,7 @@ from collisions import colliding
 from room import Room
 from dialogue import Dialogue
 from interaction import Interaction
+from center_asset import CenterAsset
 
 
 class Character:
@@ -82,42 +83,118 @@ class Character:
                 (pressed[pygame.K_d] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_RIGHT)\
                     and self.diagonal:
                 self.direction = self.settings.UP_RIGHT
-                self.rectangle.x += self.settings.DIAGONAL_SPEED
-                self.rectangle.y -= self.settings.DIAGONAL_SPEED
+                if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
+                        room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.x -= self.settings.MOVEMENT_SPEED
+                                col.y += self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.x -= self.settings.MOVEMENT_SPEED
+                                col.rectangle.y += self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.x += self.settings.DIAGONAL_SPEED
+                    self.rectangle.y -= self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or
                   (pressed[pygame.K_a] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_LEFT)\
                     and self.diagonal:
                 self.direction = self.settings.UP_LEFT
-                self.rectangle.x -= self.settings.DIAGONAL_SPEED
-                self.rectangle.y -= self.settings.DIAGONAL_SPEED
+                if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
+                        room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.x += self.settings.MOVEMENT_SPEED
+                                col.y += self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.x += self.settings.MOVEMENT_SPEED
+                                col.rectangle.y += self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.x -= self.settings.DIAGONAL_SPEED
+                    self.rectangle.y -= self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or
                   (pressed[pygame.K_d] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_RIGHT)\
                     and self.diagonal:
                 self.direction = self.settings.RIGHT
-                self.rectangle.x += self.settings.DIAGONAL_SPEED
-                self.rectangle.y += self.settings.DIAGONAL_SPEED
+                if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
+                        room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.x -= self.settings.MOVEMENT_SPEED
+                                col.y -= self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.x -= self.settings.MOVEMENT_SPEED
+                                col.rectangle.y -= self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.x += self.settings.DIAGONAL_SPEED
+                    self.rectangle.y += self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or
                   (pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_LEFT)\
                     and self.diagonal:
                 self.direction = self.settings.LEFT
-                self.rectangle.x -= self.settings.DIAGONAL_SPEED
-                self.rectangle.y += self.settings.DIAGONAL_SPEED
+                if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
+                        room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.x += self.settings.MOVEMENT_SPEED
+                                col.y -= self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.x += self.settings.MOVEMENT_SPEED
+                                col.rectangle.y -= self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.x -= self.settings.DIAGONAL_SPEED
+                    self.rectangle.y += self.settings.DIAGONAL_SPEED
             elif (pressed[pygame.K_DOWN] or pressed[pygame.K_s]) and pressed.count(True) == 1 and not colliding(
                     room, self, self.settings.DOWN):
                 self.direction = self.settings.DOWN
-                self.rectangle.y += self.settings.MOVEMENT_SPEED
+                if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.y -= self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.y -= self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.y += self.settings.MOVEMENT_SPEED
             elif (pressed[pygame.K_UP] or pressed[pygame.K_w]) and pressed.count(True) == 1 and not colliding(
                     room, self, self.settings.UP):
                 self.direction = self.settings.UP
-                self.rectangle.y -= self.settings.MOVEMENT_SPEED
+                if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.y += self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.y += self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.y -= self.settings.MOVEMENT_SPEED
             elif (pressed[pygame.K_LEFT] or pressed[pygame.K_a]) and pressed.count(True) == 1 and not colliding(
                     room, self, self.settings.LEFT):
                 self.direction = self.settings.LEFT
-                self.rectangle.x -= self.settings.MOVEMENT_SPEED
+                if room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.x += self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.x += self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.x -= self.settings.MOVEMENT_SPEED
             elif (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]) and pressed.count(True) == 1 and not colliding(
                     room, self, self.settings.RIGHT):
                 self.direction = self.settings.RIGHT
-                self.rectangle.x += self.settings.MOVEMENT_SPEED
+                if room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
+                    for col in room.all_assets:
+                        if col:
+                            if type(col) == CenterAsset:
+                                col.x -= self.settings.MOVEMENT_SPEED
+                            else:
+                                col.rectangle.x -= self.settings.MOVEMENT_SPEED
+                else:
+                    self.rectangle.x += self.settings.MOVEMENT_SPEED
 
             new_image = self.animation.animate(self.moving_character_frames[self.direction])
 
