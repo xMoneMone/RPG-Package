@@ -12,7 +12,7 @@ def main():
 
     game_settings = GameSettings(r"graphics\character_frames\down-1.png", scale=2, colourkey=(255, 75, 248),
                                  width=pygame.display.Info().current_w, height=pygame.display.Info().current_h,
-                                 cgs_path=r"graphics\dialogue\CGs")
+                                 cgs_path=r"graphics\dialogue\CGs", cursor_path=r"graphics\cursor.png")
     player_settings = PlayerSettings(r"graphics\character_frames")
     player = Character(960, 600, game_settings, player_settings,
                        Dialogue(r"graphics\dialogue\textbox.png", game_settings,

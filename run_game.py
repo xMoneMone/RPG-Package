@@ -13,6 +13,11 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
     icon = pygame.image.load(game_settings.ICON)
     icon.set_colorkey(game_settings.COLOURKEY)
     pygame.display.set_icon(icon)
+    if game_settings.CURSOR_PATH:
+        pygame.mouse.set_visible(False)
+        cursor_image = pygame.image.load(game_settings.CURSOR_PATH)
+        cursor_image.set_colorkey(game_settings.COLOURKEY)
+        cursor_image_rect = cursor_image.get_rect()
 
     interaction_screen = None
 
@@ -37,6 +42,10 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
         draw_room(room, game_screen, player)
         if interaction_screen:
             game_screen.blit(interaction_screen, (0, 0))
+
+        if game_settings.CURSOR_PATH:
+            cursor_image_rect.center = pygame.mouse.get_pos()
+            game_screen.blit(cursor_image, cursor_image_rect)
 
         pygame.display.update()
         clock.tick(game_settings.FPS)

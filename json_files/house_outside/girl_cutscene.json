@@ -14,5 +14,6 @@
     {
         "speaker": "player",
         "text": [["huuuuuh"], ["leaving", "tsun"]]
-    }]
+    }],
+    "music": "sound\\Mechanolith.mp3"
 }
