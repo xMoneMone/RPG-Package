@@ -18,6 +18,11 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
         cursor_image = pygame.image.load(game_settings.CURSOR_PATH)
         cursor_image.set_colorkey(game_settings.COLOURKEY)
         cursor_image_rect = cursor_image.get_rect()
+    if room.music:
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound(room.music), -1)
+    pygame.mixer.Channel(0).set_volume(game_settings.MUSIC_VOLUME)
+    pygame.mixer.Channel(1).set_volume(game_settings.MUSIC_VOLUME)
+    pygame.mixer.Channel(2).set_volume(game_settings.INTERACTION_VOLUME)
 
     interaction_screen = None
 

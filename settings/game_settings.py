@@ -1,6 +1,7 @@
 class GameSettings:
     def __init__(self, icon_path, fps=60, scale=1, colourkey=(255, 255, 255), width=220, height=220, caption="Game",
-                 portrait_scaling=None, textbox_scaling=None, objects_animation_speed=50, cgs_path="", cursor_path=""):
+                 portrait_scaling=None, textbox_scaling=None, objects_animation_speed=50, cgs_path="", cursor_path="",
+                 music_volume = 100, interaction_volume=100, interaction_sound = ""):
         self.FPS = fps
         self.SCALE = scale
         self.COLOURKEY = colourkey
@@ -12,6 +13,9 @@ class GameSettings:
         self.OBJECTS_ANIMATION_SPEED = objects_animation_speed
         self.CGS_PATH = cgs_path
         self.CURSOR_PATH = cursor_path
+        self.MUSIC_VOLUME = music_volume / 100
+        self.INTERACTION_VOLUME = interaction_volume / 100
+        self.INTERACTION_SOUND = interaction_sound
         if portrait_scaling:
             self.PORTRAIT_SCALE = portrait_scaling
         self.TEXTBOX_SCALE = scale

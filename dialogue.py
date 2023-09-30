@@ -100,6 +100,7 @@ class Dialogue(Interaction):
             self.dialogue_part = -1
             return
         else:
+            pygame.mixer.Channel(2).play(pygame.mixer.Sound(self.settings.INTERACTION_SOUND))
             self.dialogue_part += 1
 
         line = asset_dialogue[self.dialogue_part][0]

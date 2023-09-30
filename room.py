@@ -7,7 +7,7 @@ from animated_object import AnimatedObject
 
 
 class Room:
-    def __init__(self, name, coordinates_json_path, interaction_text_json_path, assets_path, game_settings):
+    def __init__(self, name, coordinates_json_path, interaction_text_json_path, assets_path, game_settings, music_path=""):
         self.name = name
         self.background_color = (255, 255, 255)
         self.background = None
@@ -19,6 +19,7 @@ class Room:
         self.interaction_text_path = interaction_text_json_path
         self.assets_path = assets_path
         self.game_settings = game_settings
+        self.music = music_path
         self.load_room()
 
     def load_room(self):

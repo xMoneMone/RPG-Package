@@ -9,6 +9,7 @@ class Cutscene(Interaction):
                  image_margin_bottom=0, cg_dir="", prioroty=1, background_color=None):
         super().__init__(prioroty)
         self.cutscene = json.load(open(cutscene_json_path))['dialogue']
+        self.music = json.load(open(cutscene_json_path))['music']
         self.dialogue_key = dialogue_key
         self.settings = game_settings
         self.image_margin_bottom = image_margin_bottom
@@ -27,6 +28,9 @@ class Cutscene(Interaction):
         surface = pygame.Surface((self.settings.SCREEN_WIDTH, self.settings.SCREEN_HEIGHT))
         surface.fill(self.background_color)
 
+        if not self.open and self.music:
+            pygame.mixer.Channel(0).pause()
+            pygame.mixer.Channel(1).play(pygame.mixer.Sound(self.music))
         self.open = True
 
         if "image" in current_part:
@@ -44,6 +48,8 @@ class Cutscene(Interaction):
                 if self.current_part_number == len(self.cutscene):
                     self.open = False
                     self.current_part_number = 0
+                    pygame.mixer.Channel(1).stop()
+                    pygame.mixer.Channel(0).unpause()
                     return
                 return self.functionality(asset)
             if current_dialogue_surface:
@@ -56,6 +62,8 @@ class Cutscene(Interaction):
         if self.current_part_number == len(self.cutscene):
             self.open = False
             self.current_part_number = 0
+            pygame.mixer.Channel(1).stop()
+            pygame.mixer.Channel(0).unpause()
 
         surface.set_colorkey(self.settings.COLOURKEY)
 
