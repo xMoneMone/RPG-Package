@@ -12,7 +12,7 @@ def check_height(x, player=None):
 
 
 def draw_room(room, screen: pygame.Surface, player=None):
-    all_objects = room.collidables + room.non_collidables
+    all_objects = room.all_objects
     if player:
         all_objects += [player]
         all_objects = sorted(all_objects, key=lambda x: check_height(x, player))

@@ -21,7 +21,17 @@ class Room:
         self.assets_path = assets_path
         self.game_settings = game_settings
         self.music = music_path
+        self._all_objects = None
+        self._all_assets = None
         self.load_room()
+
+    @property
+    def all_objects(self):
+        return self.collidables + self.non_collidables
+
+    @property
+    def all_assets(self):
+        return self.all_objects + self.light + [self.background] + [self.frame]
 
     def load_room(self):
         with open(self.coordinates_path) as f:
