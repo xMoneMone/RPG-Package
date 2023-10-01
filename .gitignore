@@ -162,3 +162,4 @@ cython_debug/
 graphics/
 sound/
 json_files/
+main.py
