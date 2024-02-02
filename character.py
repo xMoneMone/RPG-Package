@@ -80,7 +80,7 @@ class Character:
                 pressed[pygame.K_d] or pressed[pygame.K_a] or pressed[pygame.K_s] or pressed[pygame.K_w]:
             self.change_direction(pressed)
             if ((pressed[pygame.K_RIGHT] and pressed[pygame.K_UP]) or
-                (pressed[pygame.K_d] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_RIGHT)\
+                (pressed[pygame.K_d] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_RIGHT) \
                     and self.diagonal:
                 self.direction = self.settings.UP_RIGHT
                 if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
@@ -97,7 +97,7 @@ class Character:
                     self.rectangle.x += self.settings.DIAGONAL_SPEED
                     self.rectangle.y -= self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_UP]) or
-                  (pressed[pygame.K_a] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_LEFT)\
+                  (pressed[pygame.K_a] and pressed[pygame.K_w])) and not colliding(room, self, self.settings.UP_LEFT) \
                     and self.diagonal:
                 self.direction = self.settings.UP_LEFT
                 if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
@@ -114,7 +114,7 @@ class Character:
                     self.rectangle.x -= self.settings.DIAGONAL_SPEED
                     self.rectangle.y -= self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_RIGHT] and pressed[pygame.K_DOWN]) or
-                  (pressed[pygame.K_d] and pressed[pygame.K_s])) and\
+                  (pressed[pygame.K_d] and pressed[pygame.K_s])) and \
                     not colliding(room, self, self.settings.DOWN_RIGHT) and self.diagonal:
                 self.direction = self.settings.RIGHT
                 if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
@@ -131,7 +131,7 @@ class Character:
                     self.rectangle.x += self.settings.DIAGONAL_SPEED
                     self.rectangle.y += self.settings.DIAGONAL_SPEED
             elif ((pressed[pygame.K_LEFT] and pressed[pygame.K_DOWN]) or
-                  (pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_LEFT)\
+                  (pressed[pygame.K_a] and pressed[pygame.K_s])) and not colliding(room, self, self.settings.DOWN_LEFT) \
                     and self.diagonal:
                 self.direction = self.settings.LEFT
                 if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT or \
