@@ -5,7 +5,8 @@ from interaction import execute_interaction
 from draw_room import draw_room
 
 
-def run_game(game_settings: GameSettings, room: Room, interactions=None, player=None):
+def run_game(game_settings: GameSettings, room: Room, interactions=None, player=None, insert_loop=None,
+             insert_outside=None):
     pygame.init()
 
     game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
@@ -28,6 +29,9 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
 
     clock = pygame.time.Clock()
 
+    if insert_outside:
+        insert_outside()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -41,6 +45,9 @@ def run_game(game_settings: GameSettings, room: Room, interactions=None, player=
                     interaction_screen = execute_interaction(room, interactions, player)
             if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 interaction_screen = execute_interaction(room, interactions, player)
+
+        if insert_loop:
+            insert_loop()
 
         if player:
             player.movement(room)
