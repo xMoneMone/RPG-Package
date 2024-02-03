@@ -4,6 +4,7 @@ import os
 from center_asset import CenterAsset
 from static_object import StaticObject
 from animated_object import AnimatedObject
+from door import Door
 
 
 class Room:
@@ -14,6 +15,7 @@ class Room:
         self.background = None
         self.collidables = []
         self.non_collidables = []
+        self.doors = []
         self.light = []
         self.frame = None
         self.coordinates_path = coordinates_json_path
@@ -58,45 +60,71 @@ class Room:
                                 StaticObject(self.background, light_image, asset_instance[0],
                                              asset_instance[1], self.game_settings))
 
-                for asset in data["no-collision"]:
-                    for asset_instance in data["no-collision"][asset]:
-                        if os.path.isdir(fr"{self.assets_path}\{asset}"):
-                            frames = []
-                            for filename in os.listdir(fr"{self.assets_path}\{asset}"):
-                                image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
-                                frames.append(image)
-                            self.non_collidables.append(
-                                AnimatedObject(self.background, frames, asset_instance[0],
-                                               asset_instance[1], self.game_settings))
+                if "no-collision" in data:
+                    for asset in data["no-collision"]:
+                        for asset_instance in data["no-collision"][asset]:
+                            if os.path.isdir(fr"{self.assets_path}\{asset}"):
+                                frames = []
+                                for filename in os.listdir(fr"{self.assets_path}\{asset}"):
+                                    image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
+                                    frames.append(image)
+                                self.non_collidables.append(
+                                    AnimatedObject(self.background, frames, asset_instance[0],
+                                                   asset_instance[1], self.game_settings))
 
-                        else:
-                            no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
-                            self.non_collidables.append(
-                                StaticObject(self.background, no_col_image, asset_instance[0],
-                                             asset_instance[1], self.game_settings))
+                            else:
+                                no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                                self.non_collidables.append(
+                                    StaticObject(self.background, no_col_image, asset_instance[0],
+                                                 asset_instance[1], self.game_settings))
 
-                for asset in data["collision"]:
-                    for asset_instance in data["collision"][asset]:
+                if "collision" in data:
+                    for asset in data["collision"]:
+                        for asset_instance in data["collision"][asset]:
+                            if os.path.isdir(fr"{self.assets_path}\{asset}"):
+                                frames = []
+                                for filename in os.listdir(fr"{self.assets_path}\{asset}"):
+                                    image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
+                                    frames.append(image)
+                                name = asset
+                                if len(asset_instance) == 3:
+                                    name = asset_instance[2]
+                                self.collidables.append(
+                                    AnimatedObject(self.background, frames, asset_instance[0],
+                                                   asset_instance[1], self.game_settings, name=name))
+                                if asset in text:
+                                    self.collidables[-1].text = text[name]
+                            else:
+                                col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                                name = asset
+                                if len(asset_instance) == 3:
+                                    name = asset_instance[2]
+                                self.collidables.append(
+                                    StaticObject(self.background, col_image, asset_instance[0],
+                                                 asset_instance[1], self.game_settings, name=name))
+                                if asset in text:
+                                    self.collidables[-1].text = text[name]
+
+                if "door" in data:
+                    for asset in data["door"]:
+                        pos, character_pos, to_room = data["door"][asset]
+                        door = Door(character_pos, to_room)
                         if os.path.isdir(fr"{self.assets_path}\{asset}"):
                             frames = []
                             for filename in os.listdir(fr"{self.assets_path}\{asset}"):
                                 image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
                                 frames.append(image)
                             name = asset
-                            if len(asset_instance) == 3:
-                                name = asset_instance[2]
                             self.collidables.append(
-                                AnimatedObject(self.background, frames, asset_instance[0],
-                                               asset_instance[1], self.game_settings, name=name))
+                                AnimatedObject(self.background, frames, pos[0],
+                                               pos[1], self.game_settings, name=name, door=door))
                             if asset in text:
                                 self.collidables[-1].text = text[name]
                         else:
                             col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
                             name = asset
-                            if len(asset_instance) == 3:
-                                name = asset_instance[2]
                             self.collidables.append(
-                                StaticObject(self.background, col_image, asset_instance[0],
-                                             asset_instance[1], self.game_settings, name=name))
+                                StaticObject(self.background, col_image, pos[0],
+                                             pos[1], self.game_settings, name=name, door=door))
                             if asset in text:
                                 self.collidables[-1].text = text[name]

@@ -6,7 +6,7 @@ from animation import Animation
 
 class AnimatedObject:
     def __init__(self, background: CenterAsset, frames: list, x: int, y: int, game_settings, name: str = "",
-                 text: dict = None):
+                 text: dict = None, door=None):
         self.name = name
         self.text = text
         self._image = None
@@ -20,6 +20,7 @@ class AnimatedObject:
         self.y = background.y + y * game_settings.SCALE
         self.rectangle.x, self.rectangle.y = (self.x, self.y)
         self.last_frame = self.animation.animate(self.frames)
+        self.door = door
 
     @property
     def image(self):

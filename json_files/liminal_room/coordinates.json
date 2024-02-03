@@ -17,7 +17,10 @@
         "box4-bottom": [[1268, 1004]],
         "box5-bottom": [[1754, 1351]],
         "box6-bottom": [[2127, 697]],
-        "door": [[0, 1107]],
         "back-wall": [[0, 0]]
+    },
+    "door":
+    {
+        "door": [[0, 1107], [100, 300], "house_outside"]
     }
   }
