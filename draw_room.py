@@ -11,7 +11,7 @@ def check_height(x, player=None):
     return x.rectangle.bottom
 
 
-def draw_room(room, screen: pygame.Surface, camera, player=None):
+def draw_room(room, screen: pygame.Surface, player=None):
     all_objects = room.all_objects
     if player:
         all_objects += [player]
@@ -20,16 +20,16 @@ def draw_room(room, screen: pygame.Surface, camera, player=None):
         all_objects = sorted(all_objects, key=lambda x: check_height(x))
 
     screen.fill(room.background_color)
-    screen.blit(room.background.image, (room.background.x + camera.x, room.background.y + camera.y))
+    screen.blit(room.background.image, (room.background.x, room.background.y))
 
     for obj in all_objects:
         if obj == player:
             screen.blit(obj.image,
                         (obj.rectangle.x, obj.rectangle.y - ((player.height // player.settings.HITBOX_RATIO) * 2)))
         else:
-            screen.blit(obj.image, (obj.rectangle.x + camera.x, obj.rectangle.y + camera.y))
+            screen.blit(obj.image, (obj.rectangle.x, obj.rectangle.y))
 
     for light in room.light:
-        screen.blit(light.image, (light.x + camera.x, light.y + camera.y), special_flags=pygame.BLEND_ADD)
+        screen.blit(light.image, (light.x, light.y), special_flags=pygame.BLEND_ADD)
     if room.frame:
-        screen.blit(room.frame.image, (room.frame.x + camera.x, room.frame.y + camera.y))
+        screen.blit(room.frame.image, (room.frame.x, room.frame.y))

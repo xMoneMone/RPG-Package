@@ -6,7 +6,6 @@ from room import Room
 from dialogue import Dialogue
 from interaction import Interaction
 from center_asset import CenterAsset
-from camera import Camera
 
 
 class Character:
@@ -71,7 +70,7 @@ class Character:
         elif (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]) and pressed.count(True) == 1:
             self.direction = self.settings.RIGHT
 
-    def movement(self, room: Room, camera: Camera):
+    def movement(self, room: Room):
         if any([x.open for x in Interaction.instances]):
             return
 
@@ -89,11 +88,11 @@ class Character:
                     for col in room.all_assets:
                         if col:
                             if type(col) == CenterAsset:
-                                camera.x -= round(self.settings.DIAGONAL_SPEED)
-                                camera.y += round(self.settings.DIAGONAL_SPEED)
+                                col.x -= round(self.settings.DIAGONAL_SPEED)
+                                col.y += round(self.settings.DIAGONAL_SPEED)
                             else:
-                                camera.x -= self.settings.DIAGONAL_SPEED
-                                camera.y += self.settings.DIAGONAL_SPEED
+                                col.rectangle.x -= self.settings.DIAGONAL_SPEED
+                                col.rectangle.y += self.settings.DIAGONAL_SPEED
                 else:
                     self.rectangle.x += self.settings.DIAGONAL_SPEED
                     self.rectangle.y -= self.settings.DIAGONAL_SPEED

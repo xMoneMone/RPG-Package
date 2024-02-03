@@ -3,11 +3,10 @@ from settings import GameSettings
 from interaction import execute_interaction
 from draw_room import draw_room
 from center_asset import CenterAsset
-from camera import Camera
 
 
-def run_game(game_settings: GameSettings, rooms: dict, camera=Camera(0, 0), interactions=None, player=None,
-             insert_loop=None, insert_outside=None):
+def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player=None, insert_loop=None,
+             insert_outside=None):
     pygame.init()
 
     game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
@@ -71,8 +70,8 @@ def run_game(game_settings: GameSettings, rooms: dict, camera=Camera(0, 0), inte
             insert_loop()
 
         if player:
-            player.movement(room, camera)
-        draw_room(room, game_screen, camera, player)
+            player.movement(room)
+        draw_room(room, game_screen, player)
         if interaction_screen:
             game_screen.blit(interaction_screen, (0, 0))
 
