@@ -26,6 +26,7 @@ class Room:
         self._all_objects = None
         self._all_assets = None
         self.load_room()
+        self.scroll = False
 
     @property
     def all_objects(self):
@@ -47,7 +48,9 @@ class Room:
                 if "background" in data["center"]:
                     background_image = pygame.image.load(fr"{self.assets_path}\background.png")
                     self.background = CenterAsset(background_image, self.game_settings)
-
+                    if self.background.image.get_height() > self.game_settings.SCREEN_HEIGHT or \
+                            self.background.image.get_width() > self.game_settings.SCREEN_WIDTH:
+                        self.scroll = True
                 if "frame" in data["center"]:
                     frame_image = pygame.image.load(fr"{self.assets_path}\frame.png")
                     self.frame = CenterAsset(frame_image, self.game_settings)

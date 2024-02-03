@@ -62,15 +62,18 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
         open_interactions.sort(key=lambda x: x.priority, reverse=True)
         return open_interactions[0].functionality(asset)
 
+    if asset and asset.door:
+        return "door", asset.door
+
     if asset:
         if interactions:
             if asset.name in interactions:
-                return interactions[asset.name].functionality(asset)
+                return "interaction", interactions[asset.name].functionality(asset)
             elif "default" in interactions:
-                return interactions["default"].functionality(asset)
+                return "interaction", interactions["default"].functionality(asset)
             elif player:
                 if player.dialogue:
-                    return player.dialogue.functionality(asset)
+                    return "interaction", player.dialogue.functionality(asset)
         elif player:
             if player.dialogue:
-                return player.dialogue.functionality(asset)
+                return "interaction", player.dialogue.functionality(asset)

@@ -21,6 +21,6 @@
     },
     "door":
     {
-        "door": [[0, 1107], [100, 300], "house_outside"]
+        "door": [[0, 1107], [1300, 800], "house_outside"]
     }
   }

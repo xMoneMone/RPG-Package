@@ -25,7 +25,7 @@
   },
   "door":
   {
-    "notch": [[440, 347], [100, 300], "liminal_room"]
+    "notch": [[440, 347], [2460, -800], "liminal_room"]
   }
 
 }
