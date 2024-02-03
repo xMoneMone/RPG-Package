@@ -1,15 +1,15 @@
 import pygame
 from settings import GameSettings
-from room import Room
 from interaction import execute_interaction
 from draw_room import draw_room
 
 
-def run_game(game_settings: GameSettings, room: Room, interactions=None, player=None, insert_loop=None,
+def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player=None, insert_loop=None,
              insert_outside=None):
     pygame.init()
 
     game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
+    room = list(rooms.values())[0]
     pygame.display.set_caption(game_settings.CAPTION)
     icon = pygame.image.load(game_settings.ICON)
     icon.set_colorkey(game_settings.COLOURKEY)
