@@ -60,7 +60,7 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
 
     if open_interactions := [x for x in Interaction.instances if x.open]:
         open_interactions.sort(key=lambda x: x.priority, reverse=True)
-        return open_interactions[0].functionality(asset)
+        return "interaction", open_interactions[0].functionality(asset)
 
     if asset and asset.door:
         return "door", asset.door

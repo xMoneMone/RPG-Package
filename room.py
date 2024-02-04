@@ -36,6 +36,16 @@ class Room:
     def all_assets(self):
         return self.all_objects + self.light + [self.background] + [self.frame]
 
+    def reset_room(self):
+        for asset in self.all_assets:
+            if asset:
+                if type(asset) == CenterAsset:
+                    asset.x = asset.og_x
+                    asset.y = asset.og_y
+                else:
+                    asset.rectangle.x = asset.x
+                    asset.rectangle.y = asset.y
+
     def load_room(self):
         with open(self.coordinates_path) as f:
             data = json.load(f)

@@ -48,10 +48,11 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
                         room = rooms[interaction[1].to]
                         if room.background.image.get_height() > game_settings.SCREEN_HEIGHT or \
                                 room.background.image.get_width() > game_settings.SCREEN_WIDTH:
+                            room.reset_room()
+                            player.rectangle.x = game_settings.SCREEN_WIDTH // 2
+                            player.rectangle.y = game_settings.SCREEN_HEIGHT // 2
                             for asset in room.all_assets:
                                 if asset:
-                                    player.rectangle.x = game_settings.SCREEN_WIDTH // 2
-                                    player.rectangle.y = game_settings.SCREEN_HEIGHT // 2
                                     if type(asset) == CenterAsset:
                                         asset.x += interaction[1].character_x
                                         asset.y += interaction[1].character_y
@@ -61,8 +62,8 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
                         else:
                             player.rectangle.x = interaction[1].character_x
                             player.rectangle.y = interaction[1].character_y
-                    else:
-                        interaction_screen = interaction
+                    elif interaction:
+                        interaction_screen = interaction[1]
             if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 interaction_screen = execute_interaction(room, interactions, player)
 
