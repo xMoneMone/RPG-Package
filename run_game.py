@@ -53,12 +53,8 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
                             player.rectangle.y = game_settings.SCREEN_HEIGHT // 2
                             for asset in room.all_assets:
                                 if asset:
-                                    if type(asset) == CenterAsset:
-                                        asset.x += interaction[1].character_x
-                                        asset.y += interaction[1].character_y
-                                    else:
-                                        asset.rectangle.x += interaction[1].character_x
-                                        asset.rectangle.y += interaction[1].character_y
+                                    asset.x += interaction[1].character_x
+                                    asset.y += interaction[1].character_y
                         else:
                             player.rectangle.x = interaction[1].character_x
                             player.rectangle.y = interaction[1].character_y

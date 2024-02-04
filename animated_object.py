@@ -16,11 +16,28 @@ class AnimatedObject:
             self.frames[index].set_colorkey(game_settings.COLOURKEY)
         self.animation = Animation(game_settings.OBJECTS_ANIMATION_SPEED)
         self.rectangle = self.frames[0].get_rect()
-        self.x = background.x + x * game_settings.SCALE
-        self.y = background.y + y * game_settings.SCALE
-        self.rectangle.x, self.rectangle.y = (self.x, self.y)
+        self.og_x = background.x + x * game_settings.SCALE
+        self.og_y = background.y + y * game_settings.SCALE
+        self.rectangle.x, self.rectangle.y = (self.og_x, self.og_y)
         self.last_frame = self.animation.animate(self.frames)
         self.door = door
+
+    @property
+    def x(self):
+        return self.rectangle.x
+
+    @property
+    def y(self):
+        return self.rectangle.y
+
+    @x.setter
+    def x(self, new_x):
+        self.rectangle.x = new_x
+
+    @y.setter
+    def y(self, new_y):
+        self.rectangle.y = new_y
+
 
     @property
     def image(self):

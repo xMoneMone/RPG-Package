@@ -87,12 +87,8 @@ class Character:
                         room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.x -= round(self.settings.DIAGONAL_SPEED)
-                                col.y += round(self.settings.DIAGONAL_SPEED)
-                            else:
-                                col.rectangle.x -= self.settings.DIAGONAL_SPEED
-                                col.rectangle.y += self.settings.DIAGONAL_SPEED
+                            col.x -= round(self.settings.DIAGONAL_SPEED)
+                            col.y += round(self.settings.DIAGONAL_SPEED)
                 else:
                     self.rectangle.x += self.settings.DIAGONAL_SPEED
                     self.rectangle.y -= self.settings.DIAGONAL_SPEED
@@ -104,12 +100,8 @@ class Character:
                         room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.x += round(self.settings.DIAGONAL_SPEED)
-                                col.y += round(self.settings.DIAGONAL_SPEED)
-                            else:
-                                col.rectangle.x += self.settings.DIAGONAL_SPEED
-                                col.rectangle.y += self.settings.DIAGONAL_SPEED
+                            col.x += round(self.settings.DIAGONAL_SPEED)
+                            col.y += round(self.settings.DIAGONAL_SPEED)
                 else:
                     self.rectangle.x -= self.settings.DIAGONAL_SPEED
                     self.rectangle.y -= self.settings.DIAGONAL_SPEED
@@ -121,12 +113,8 @@ class Character:
                         room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.x -= round(self.settings.DIAGONAL_SPEED)
-                                col.y -= round(self.settings.DIAGONAL_SPEED)
-                            else:
-                                col.rectangle.x -= self.settings.DIAGONAL_SPEED
-                                col.rectangle.y -= self.settings.DIAGONAL_SPEED
+                            col.x -= round(self.settings.DIAGONAL_SPEED)
+                            col.y -= round(self.settings.DIAGONAL_SPEED)
                 else:
                     self.rectangle.x += self.settings.DIAGONAL_SPEED
                     self.rectangle.y += self.settings.DIAGONAL_SPEED
@@ -138,12 +126,8 @@ class Character:
                         room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.x += round(self.settings.DIAGONAL_SPEED)
-                                col.y -= round(self.settings.DIAGONAL_SPEED)
-                            else:
-                                col.rectangle.x += self.settings.DIAGONAL_SPEED
-                                col.rectangle.y -= self.settings.DIAGONAL_SPEED
+                            col.x += round(self.settings.DIAGONAL_SPEED)
+                            col.y -= round(self.settings.DIAGONAL_SPEED)
                 else:
                     self.rectangle.x -= self.settings.DIAGONAL_SPEED
                     self.rectangle.y += self.settings.DIAGONAL_SPEED
@@ -153,10 +137,7 @@ class Character:
                 if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.y -= round(self.settings.MOVEMENT_SPEED)
-                            else:
-                                col.rectangle.y -= self.settings.MOVEMENT_SPEED
+                            col.y -= round(self.settings.MOVEMENT_SPEED)
                 else:
                     self.rectangle.y += self.settings.MOVEMENT_SPEED
             elif (pressed[pygame.K_UP] or pressed[pygame.K_w]) and pressed.count(True) == 1 and not colliding(
@@ -165,10 +146,7 @@ class Character:
                 if room.background.image.get_height() > room.game_settings.SCREEN_HEIGHT:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.y += round(self.settings.MOVEMENT_SPEED)
-                            else:
-                                col.rectangle.y += self.settings.MOVEMENT_SPEED
+                            col.y += round(self.settings.MOVEMENT_SPEED)
                 else:
                     self.rectangle.y -= self.settings.MOVEMENT_SPEED
             elif (pressed[pygame.K_LEFT] or pressed[pygame.K_a]) and pressed.count(True) == 1 and not colliding(
@@ -177,10 +155,7 @@ class Character:
                 if room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.x = round(col.x + self.settings.MOVEMENT_SPEED)
-                            else:
-                                col.rectangle.x += self.settings.MOVEMENT_SPEED
+                            col.x = round(col.x + self.settings.MOVEMENT_SPEED)
                 else:
                     self.rectangle.x -= self.settings.MOVEMENT_SPEED
             elif (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]) and pressed.count(True) == 1 and not colliding(
@@ -189,10 +164,7 @@ class Character:
                 if room.background.image.get_width() > room.game_settings.SCREEN_WIDTH:
                     for col in room.all_assets:
                         if col:
-                            if type(col) == CenterAsset:
-                                col.x -= round(self.settings.MOVEMENT_SPEED)
-                            else:
-                                col.rectangle.x -= self.settings.MOVEMENT_SPEED
+                            col.x -= round(self.settings.MOVEMENT_SPEED)
                 else:
                     self.rectangle.x += self.settings.MOVEMENT_SPEED
 

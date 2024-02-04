@@ -39,12 +39,8 @@ class Room:
     def reset_room(self):
         for asset in self.all_assets:
             if asset:
-                if type(asset) == CenterAsset:
-                    asset.x = asset.og_x
-                    asset.y = asset.og_y
-                else:
-                    asset.rectangle.x = asset.x
-                    asset.rectangle.y = asset.y
+                asset.x = asset.og_x
+                asset.y = asset.og_y
 
     def load_room(self):
         with open(self.coordinates_path) as f:
