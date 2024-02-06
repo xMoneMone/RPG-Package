@@ -15,7 +15,7 @@ class Room:
         self.background = None
         self.collidables = []
         self.non_collidables = []
-        self.doors = []
+        self.portals = []
         self.light = []
         self.frame = None
         self.coordinates_path = coordinates_json_path
@@ -30,7 +30,7 @@ class Room:
 
     @property
     def all_objects(self):
-        return self.collidables + self.non_collidables
+        return self.collidables + self.non_collidables + self.portals
 
     @property
     def all_assets(self):
@@ -137,3 +137,23 @@ class Room:
                                              pos[1], self.game_settings, name=name, door=door))
                             if asset in text:
                                 self.collidables[-1].text = text[name]
+
+                if "portal" in data:
+                    for asset in data["portal"]:
+                        pos, character_pos, to_room = data["portal"][asset]
+                        door = Door(character_pos, to_room)
+                        if os.path.isdir(fr"{self.assets_path}\{asset}"):
+                            frames = []
+                            for filename in os.listdir(fr"{self.assets_path}\{asset}"):
+                                image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
+                                frames.append(image)
+                            name = asset
+                            self.portals.append(
+                                AnimatedObject(self.background, frames, pos[0],
+                                               pos[1], self.game_settings, name=name, door=door))
+                        else:
+                            col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                            name = asset
+                            self.portals.append(
+                                StaticObject(self.background, col_image, pos[0],
+                                             pos[1], self.game_settings, name=name, door=door))

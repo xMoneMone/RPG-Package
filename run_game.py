@@ -2,7 +2,7 @@ import pygame
 from settings import GameSettings
 from interaction import execute_interaction
 from draw_room import draw_room
-from center_asset import CenterAsset
+from door import check_room_change
 
 
 def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player=None, insert_loop=None,
@@ -11,6 +11,7 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
 
     game_screen = pygame.display.set_mode((game_settings.SCREEN_WIDTH, game_settings.SCREEN_HEIGHT))
     room = list(rooms.values())[0]
+    interaction = None
     pygame.display.set_caption(game_settings.CAPTION)
     icon = pygame.image.load(game_settings.ICON)
     icon.set_colorkey(game_settings.COLOURKEY)
@@ -44,27 +45,30 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
                     exit()
                 if event.key == pygame.K_SPACE:
                     interaction = execute_interaction(room, interactions, player)
-                    if interaction and interaction[0] == "door":
-                        room = rooms[interaction[1].to]
-                        if room.background.image.get_height() > game_settings.SCREEN_HEIGHT or \
-                                room.background.image.get_width() > game_settings.SCREEN_WIDTH:
-                            room.reset_room()
-                            player.rectangle.x = game_settings.SCREEN_WIDTH // 2
-                            player.rectangle.y = game_settings.SCREEN_HEIGHT // 2
-                            for asset in room.all_assets:
-                                if asset:
-                                    asset.x += interaction[1].character_x
-                                    asset.y += interaction[1].character_y
-                        else:
-                            player.rectangle.x = interaction[1].character_x
-                            player.rectangle.y = interaction[1].character_y
-                    elif interaction:
+                    if interaction and interaction[0] != "door":
                         interaction_screen = interaction[1]
             if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 interaction_screen = execute_interaction(room, interactions, player)
 
         if insert_loop:
             insert_loop()
+
+        new_room = check_room_change(player, room.portals, interaction)
+        if new_room:
+            room = rooms[new_room.to]
+            if room.background.image.get_height() > game_settings.SCREEN_HEIGHT or \
+                    room.background.image.get_width() > game_settings.SCREEN_WIDTH:
+                room.reset_room()
+                player.rectangle.x = game_settings.SCREEN_WIDTH // 2
+                player.rectangle.y = game_settings.SCREEN_HEIGHT // 2
+                for asset in room.all_assets:
+                    if asset:
+                        asset.x += new_room.character_x
+                        asset.y += new_room.character_y
+            else:
+                player.rectangle.x = new_room.character_x
+                player.rectangle.y = new_room.character_y
+            interaction = None
 
         if player:
             player.movement(room)

@@ -21,11 +21,11 @@ def main():
                                 margin_bottom=30))
     rooms = {
         "house_outside": Room("house_outside", r"json_files\house_outside\coordinates.json",
-                             r"graphics\room_assets\house_outside", game_settings, music_path=r"sound/Morning.mp3",
-                             interaction_text_json_path=r"json_files\house_outside\interaction_text.json"),
+                              r"graphics\room_assets\house_outside", game_settings, music_path=r"sound/Morning.mp3",
+                              interaction_text_json_path=r"json_files\house_outside\interaction_text.json"),
         "liminal_room": Room("liminal_room", r"json_files\liminal_room\coordinates.json",
-                            r"graphics\room_assets\liminal_room", game_settings,
-                            interaction_text_json_path=r"json_files\liminal_room\interaction_text.json")
+                             r"graphics\room_assets\liminal_room", game_settings,
+                             interaction_text_json_path=r"json_files\liminal_room\interaction_text.json")
     }
     cutscene_key = {
         "player": player.dialogue,

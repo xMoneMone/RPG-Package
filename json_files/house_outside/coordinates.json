@@ -26,6 +26,10 @@
   "door":
   {
     "notch": [[440, 347], [2460, -800], "liminal_room"]
+  },
+  "portal":
+  {
+    "portal": [[225, 465], [2260, 0], "liminal_room"]
   }
 
 }
