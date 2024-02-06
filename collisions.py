@@ -1,24 +1,6 @@
 from room import Room
 
 
-def colliding_with(sprite, player, player_direction: str):
-    collision = player.rectangle.colliderect(sprite.rectangle)
-    if collision:
-        if abs(sprite.rectangle.left - player.rectangle.right) <= player.settings.COLLISION_MARGIN and \
-                player_direction in (player.settings.RIGHT, player.settings.UP_RIGHT, player.settings.DOWN_RIGHT):
-            return True
-        elif abs(sprite.rectangle.top - player.rectangle.bottom) <= player.settings.COLLISION_MARGIN and \
-                player_direction in (player.settings.DOWN, player.settings.DOWN_LEFT, player.settings.DOWN_RIGHT):
-            return True
-        elif abs(player.rectangle.left - sprite.rectangle.right) <= player.settings.COLLISION_MARGIN and \
-                player_direction in (player.settings.LEFT, player.settings.DOWN_LEFT, player.settings.UP_LEFT):
-            return True
-        elif abs(player.rectangle.top - sprite.rectangle.bottom) <= player.settings.COLLISION_MARGIN and \
-                player_direction in (player.settings.UP, player.settings.UP_LEFT, player.settings.UP_RIGHT):
-            return True
-    return False
-
-
 def colliding(room: Room, player, player_direction: str):
     # room boundaries
     room_bottom = room.background.y + room.background.image.get_height()
@@ -38,8 +20,19 @@ def colliding(room: Room, player, player_direction: str):
 
     # sprite collissions
     for sprite in room.collidables:
-        collision = colliding_with(sprite, player, player_direction)
+        collision = player.rectangle.colliderect(sprite.rectangle)
         if collision:
-            return collision
+            if abs(sprite.rectangle.left - player.rectangle.right) <= player.settings.COLLISION_MARGIN and \
+                    player_direction in (player.settings.RIGHT, player.settings.UP_RIGHT, player.settings.DOWN_RIGHT):
+                return True
+            elif abs(sprite.rectangle.top - player.rectangle.bottom) <= player.settings.COLLISION_MARGIN and \
+                    player_direction in (player.settings.DOWN, player.settings.DOWN_LEFT, player.settings.DOWN_RIGHT):
+                return True
+            elif abs(player.rectangle.left - sprite.rectangle.right) <= player.settings.COLLISION_MARGIN and \
+                    player_direction in (player.settings.LEFT, player.settings.DOWN_LEFT, player.settings.UP_LEFT):
+                return True
+            elif abs(player.rectangle.top - sprite.rectangle.bottom) <= player.settings.COLLISION_MARGIN and \
+                    player_direction in (player.settings.UP, player.settings.UP_LEFT, player.settings.UP_RIGHT):
+                return True
 
     return False
