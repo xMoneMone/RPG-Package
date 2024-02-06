@@ -5,7 +5,6 @@ from collisions import colliding
 from room import Room
 from dialogue import Dialogue
 from interaction import Interaction
-from center_asset import CenterAsset
 
 
 class Character:

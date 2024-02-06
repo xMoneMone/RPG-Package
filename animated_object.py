@@ -38,7 +38,6 @@ class AnimatedObject:
     def y(self, new_y):
         self.rectangle.y = new_y
 
-
     @property
     def image(self):
         frame = self.animation.animate(self.frames)
