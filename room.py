@@ -43,6 +43,7 @@ class Room:
                 asset.y = asset.og_y
 
     def load_room(self):
+        asset_id = 0
         with open(self.coordinates_path) as f:
             data = json.load(f)
 
@@ -53,13 +54,15 @@ class Room:
 
                 if "background" in data["center"]:
                     background_image = pygame.image.load(fr"{self.assets_path}\background.png")
-                    self.background = CenterAsset(background_image, self.game_settings)
+                    self.background = CenterAsset(background_image, self.game_settings, "background", asset_id)
+                    asset_id += 1
                     if self.background.image.get_height() > self.game_settings.SCREEN_HEIGHT or \
                             self.background.image.get_width() > self.game_settings.SCREEN_WIDTH:
                         self.scroll = True
                 if "frame" in data["center"]:
                     frame_image = pygame.image.load(fr"{self.assets_path}\frame.png")
-                    self.frame = CenterAsset(frame_image, self.game_settings)
+                    self.frame = CenterAsset(frame_image, self.game_settings, "frame", asset_id)
+                    asset_id += 1
 
                 if "light" in data:
                     for asset in data["light"]:
@@ -67,7 +70,8 @@ class Room:
                         for asset_instance in data["light"][asset]:
                             self.light.append(
                                 StaticObject(self.background, light_image, asset_instance[0],
-                                             asset_instance[1], self.game_settings))
+                                             asset_instance[1], self.game_settings, asset_id))
+                            asset_id += 1
 
                 if "no-collision" in data:
                     for asset in data["no-collision"]:
@@ -77,15 +81,23 @@ class Room:
                                 for filename in os.listdir(fr"{self.assets_path}\{asset}"):
                                     image = pygame.image.load(fr"{self.assets_path}\{asset}\{filename}")
                                     frames.append(image)
+                                name = asset
+                                if len(asset_instance) == 3:
+                                    name = asset_instance[2]
                                 self.non_collidables.append(
                                     AnimatedObject(self.background, frames, asset_instance[0],
-                                                   asset_instance[1], self.game_settings))
+                                                   asset_instance[1], self.game_settings, asset_id, name=name))
+                                asset_id += 1
 
                             else:
                                 no_col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
+                                name = asset
+                                if len(asset_instance) == 3:
+                                    name = asset_instance[2]
                                 self.non_collidables.append(
                                     StaticObject(self.background, no_col_image, asset_instance[0],
-                                                 asset_instance[1], self.game_settings))
+                                                 asset_instance[1], self.game_settings, asset_id, name=name))
+                                asset_id += 1
 
                 if "collision" in data:
                     for asset in data["collision"]:
@@ -100,7 +112,8 @@ class Room:
                                     name = asset_instance[2]
                                 self.collidables.append(
                                     AnimatedObject(self.background, frames, asset_instance[0],
-                                                   asset_instance[1], self.game_settings, name=name))
+                                                   asset_instance[1], self.game_settings, asset_id, name=name))
+                                asset_id += 1
                                 if asset in text:
                                     self.collidables[-1].text = text[name]
                             else:
@@ -110,7 +123,8 @@ class Room:
                                     name = asset_instance[2]
                                 self.collidables.append(
                                     StaticObject(self.background, col_image, asset_instance[0],
-                                                 asset_instance[1], self.game_settings, name=name))
+                                                 asset_instance[1], self.game_settings, asset_id, name=name))
+                                asset_id += 1
                                 if asset in text:
                                     self.collidables[-1].text = text[name]
 
@@ -126,7 +140,8 @@ class Room:
                             name = asset
                             self.collidables.append(
                                 AnimatedObject(self.background, frames, pos[0],
-                                               pos[1], self.game_settings, name=name, door=door))
+                                               pos[1], self.game_settings, asset_id, name=name, door=door))
+                            asset_id += 1
                             if asset in text:
                                 self.collidables[-1].text = text[name]
                         else:
@@ -134,7 +149,8 @@ class Room:
                             name = asset
                             self.collidables.append(
                                 StaticObject(self.background, col_image, pos[0],
-                                             pos[1], self.game_settings, name=name, door=door))
+                                             pos[1], self.game_settings, asset_id, name=name, door=door))
+                            asset_id += 1
                             if asset in text:
                                 self.collidables[-1].text = text[name]
 
@@ -150,10 +166,12 @@ class Room:
                             name = asset
                             self.portals.append(
                                 AnimatedObject(self.background, frames, pos[0],
-                                               pos[1], self.game_settings, name=name, door=door))
+                                               pos[1], self.game_settings, asset_id, name=name, door=door))
+                            asset_id += 1
                         else:
                             col_image = pygame.image.load(fr"{self.assets_path}\{asset}.png")
                             name = asset
                             self.portals.append(
                                 StaticObject(self.background, col_image, pos[0],
-                                             pos[1], self.game_settings, name=name, door=door))
+                                             pos[1], self.game_settings, asset_id, name=name, door=door))
+                            asset_id += 1

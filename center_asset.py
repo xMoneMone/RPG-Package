@@ -2,7 +2,9 @@ import pygame
 
 
 class CenterAsset:
-    def __init__(self, image: pygame.Surface, game_settings):
+    def __init__(self, image: pygame.Surface, game_settings, name, id):
+        self.id = id
+        self.name = name
         self.image = image
         self.image = pygame.transform.scale_by(self.image, game_settings.SCALE)
         self.image.set_colorkey(game_settings.COLOURKEY)

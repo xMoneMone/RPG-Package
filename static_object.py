@@ -3,8 +3,9 @@ from center_asset import CenterAsset
 
 
 class StaticObject:
-    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, game_settings, name: str = "",
-                 text: dict = None, door=None):
+    def __init__(self, background: CenterAsset, image: pygame.Surface, x: int, y: int, game_settings, id,
+                 name: str = "", text: dict = None, door=None):
+        self.id = id
         self.name = name
         self.text = text
         self.image = image

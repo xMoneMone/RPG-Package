@@ -5,8 +5,9 @@ from animation import Animation
 
 
 class AnimatedObject:
-    def __init__(self, background: CenterAsset, frames: list, x: int, y: int, game_settings, name: str = "",
+    def __init__(self, background: CenterAsset, frames: list, x: int, y: int, game_settings, id, name: str = "",
                  text: dict = None, door=None):
+        self.id = id
         self.name = name
         self.text = text
         self._image = None
