@@ -35,7 +35,7 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
     clock = pygame.time.Clock()
 
     # load room from save file
-    if os.path.exists('saved_position.json'):
+    if player.settings.SAVE_POSITION and os.path.exists('saved_position.json'):
         with open('saved_position.json') as f:
             data = json.load(f)
             room = rooms[data['room']]
@@ -50,12 +50,14 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                save_position(room, player)
+                if player.settings.SAVE_POSITION:
+                    save_position(room, player)
                 pygame.quit()
                 break
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    save_position(room, player)
+                    if player.settings.SAVE_POSITION:
+                        save_position(room, player)
                     pygame.quit()
                     exit()
                 if event.key == pygame.K_SPACE:

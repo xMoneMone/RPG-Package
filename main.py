@@ -14,7 +14,7 @@ def main():
                                  width=pygame.display.Info().current_w, height=pygame.display.Info().current_h,
                                  cgs_path=r"graphics\dialogue\CGs", cursor_path=r"graphics\cursor.png", music_volume=6,
                                  interaction_volume=6, interaction_sound=r'sound\interact.mp3')
-    player_settings = PlayerSettings(r"graphics\character_frames")
+    player_settings = PlayerSettings(r"graphics\character_frames", save_position=True)
     player = Character(960, 600, game_settings, player_settings,
                        Dialogue(r"graphics\dialogue\textbox.png", game_settings,
                                 portraits_path=r"graphics\dialogue\player\portraits", portrait_right=True,
