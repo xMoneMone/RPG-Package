@@ -1,4 +1,5 @@
 {
+    "name": "girl_cutscene",
     "dialogue": [{
         "speaker": "player",
         "text": [["WTF"], ["WHO ARE YOU", "angry"]]

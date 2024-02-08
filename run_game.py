@@ -3,7 +3,7 @@ from settings import GameSettings
 from interaction import execute_interaction
 from draw_room import draw_room
 from door import check_room_change
-from save import save, get_save
+from save import save, get_save, save_position, add_to_save
 import os
 
 
@@ -49,13 +49,15 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if player.settings.SAVE_POSITION:
-                    save(room, player)
+                    add_to_save(save_position(room=room, player=player), pos=True)
+                save()
                 pygame.quit()
                 break
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     if player.settings.SAVE_POSITION:
-                        save(room, player)
+                        add_to_save(save_position(room=room, player=player), pos=True)
+                    save()
                     pygame.quit()
                     exit()
                 if event.key == pygame.K_SPACE:
