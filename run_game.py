@@ -35,7 +35,7 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
 
     # load room from save file
     if player.settings.SAVE_POSITION and os.path.exists('saved_position.json'):
-        data = get_save()
+        data = get_save()['position']
         room = rooms[data['room']]
         player.rectangle.x, player.rectangle.y, player.direction = data['player']
         for asset in room.all_assets:

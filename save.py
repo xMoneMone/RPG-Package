@@ -16,7 +16,7 @@ def save_position(room, player):
 def save(room=None, player=None, to_save: dict = None):
     saved = dict()
     if room and player:
-        saved = save_position(room, player)
+        saved['position'] = save_position(room, player)
     if to_save:
         saved.update(to_save)
     with open('saved_position.json', 'w') as file:
