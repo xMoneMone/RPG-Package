@@ -33,7 +33,7 @@ def main():
                           portraits_path=r"graphics\dialogue\player\portraits", margin_bottom=30)
     }
 
-    interactions = {"girl": Cutscene(r"json_files\house_outside\girl_cutscene.json", cutscene_key, game_settings,
+    interactions = {"girl": Cutscene(r"json_files\house_outside\girl_cutscene.json", cutscene_key, game_settings, "girl",
                                      prioroty=2)}
 
     run_game(game_settings, rooms, interactions, player)

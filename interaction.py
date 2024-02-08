@@ -3,6 +3,7 @@ import pygame
 from room import Room
 import weakref
 from static_object import StaticObject
+from save import get_save_by_key
 
 
 class Interaction:
@@ -67,7 +68,7 @@ def execute_interaction(room: Room, interactions: dict = None, player=None):
 
     if asset:
         if interactions:
-            if asset.name in interactions:
+            if asset.name in interactions and not get_save_by_key(asset.name):
                 return "interaction", interactions[asset.name].functionality(asset)
             elif "default" in interactions:
                 return "interaction", interactions["default"].functionality(asset)
