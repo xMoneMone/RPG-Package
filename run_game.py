@@ -3,9 +3,8 @@ from settings import GameSettings
 from interaction import execute_interaction
 from draw_room import draw_room
 from door import check_room_change
-from save_position import save_position
+from save import save, get_save
 import os
-import json
 
 
 def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player=None, insert_loop=None,
@@ -36,13 +35,12 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
 
     # load room from save file
     if player.settings.SAVE_POSITION and os.path.exists('saved_position.json'):
-        with open('saved_position.json') as f:
-            data = json.load(f)
-            room = rooms[data['room']]
-            player.rectangle.x, player.rectangle.y, player.direction = data['player']
-            for asset in room.all_assets:
-                if asset:
-                    asset.x, asset.y = data[str(asset.id)]
+        data = get_save()
+        room = rooms[data['room']]
+        player.rectangle.x, player.rectangle.y, player.direction = data['player']
+        for asset in room.all_assets:
+            if asset:
+                asset.x, asset.y = data[str(asset.id)]
 
     if insert_outside:
         insert_outside()
@@ -51,13 +49,13 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if player.settings.SAVE_POSITION:
-                    save_position(room, player)
+                    save(room, player)
                 pygame.quit()
                 break
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     if player.settings.SAVE_POSITION:
-                        save_position(room, player)
+                        save(room, player)
                     pygame.quit()
                     exit()
                 if event.key == pygame.K_SPACE:
