@@ -13,7 +13,7 @@ def main():
     game_settings = GameSettings(r"graphics\character_frames\down-1.png", scale=2, colourkey=(255, 75, 248),
                                  width=pygame.display.Info().current_w, height=pygame.display.Info().current_h,
                                  cgs_path=r"graphics\dialogue\CGs", cursor_path=r"graphics\cursor.png", music_volume=6,
-                                 interaction_volume=6, interaction_sound=r'sound\interact.mp3')
+                                 interaction_volume=6, interaction_sound=r'sound\interact.mp3', room_fade_speed=20)
     player_settings = PlayerSettings(r"graphics\character_frames", save_position=True)
     player = Character(960, 600, game_settings, player_settings,
                        Dialogue(r"graphics\dialogue\textbox.png", game_settings,

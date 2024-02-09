@@ -9,7 +9,7 @@ from door import Door
 
 class Room:
     def __init__(self, name, coordinates_json_path, assets_path, game_settings, interaction_text_json_path="",
-                 music_path=""):
+                 music_path="", fade_color=(0, 0, 0)):
         self.name = name
         self.background_color = (255, 255, 255)
         self.background = None
@@ -27,6 +27,7 @@ class Room:
         self._all_assets = None
         self.load_room()
         self.scroll = False
+        self.fade_color = fade_color
 
     @property
     def all_objects(self):

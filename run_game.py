@@ -5,6 +5,7 @@ from draw_room import draw_room
 from door import check_room_change
 from save import save, get_save, save_position, add_to_save
 import os
+from utility import Fade
 
 
 def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player=None, insert_loop=None,
@@ -15,6 +16,7 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
     room = list(rooms.values())[0]
     interaction = None
     pygame.display.set_caption(game_settings.CAPTION)
+    fade = Fade(game_settings)
     icon = pygame.image.load(game_settings.ICON)
     icon.set_colorkey(game_settings.COLOURKEY)
     pygame.display.set_icon(icon)
@@ -72,6 +74,7 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
 
         new_room = check_room_change(player, room.portals, interaction)
         if new_room:
+            fade.fading_out = True
             room = rooms[new_room.to]
             if room.background.image.get_height() > game_settings.SCREEN_HEIGHT or \
                     room.background.image.get_width() > game_settings.SCREEN_WIDTH:
@@ -96,6 +99,12 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
         if game_settings.CURSOR_PATH:
             cursor_image_rect.center = pygame.mouse.get_pos()
             game_screen.blit(cursor_image, cursor_image_rect)
+
+        if game_settings.ROOM_FADE:
+            game_screen.blit(fade.fade_in(color=game_settings.ROOM_FADE_COLOR, speed=game_settings.ROOM_FADE_SPEED),
+                             (0, 0))
+            game_screen.blit(fade.fade_out(color=game_settings.ROOM_FADE_COLOR, speed=game_settings.ROOM_FADE_SPEED),
+                             (0, 0))
 
         pygame.display.update()
         clock.tick(game_settings.FPS)
