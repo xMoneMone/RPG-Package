@@ -69,9 +69,6 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
             if not player and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 interaction_screen = execute_interaction(room, interactions, player)
 
-        if insert_loop:
-            insert_loop()
-
         new_room = check_room_change(player, room.portals, interaction)
         if new_room:
             fade.fading_out = True
@@ -105,6 +102,9 @@ def run_game(game_settings: GameSettings, rooms: dict, interactions=None, player
                              (0, 0))
             game_screen.blit(fade.fade_out(color=game_settings.ROOM_FADE_COLOR, speed=game_settings.ROOM_FADE_SPEED),
                              (0, 0))
+
+        if insert_loop:
+            insert_loop()
 
         pygame.display.update()
         clock.tick(game_settings.FPS)
