@@ -2,12 +2,16 @@ import pygame
 from interaction import Interaction
 from settings import GameSettings
 import json
+from save import add_to_save, get_save_by_key
 
 
 class Cutscene(Interaction):
-    def __init__(self, cutscene_json_path: str, dialogue_key: dict, game_settings: GameSettings, image_scale: int = 1,
-                 image_margin_bottom=0, cg_dir="", prioroty=1, background_color=None):
+    def __init__(self, cutscene_json_path: str, dialogue_key: dict, game_settings: GameSettings, asset,
+                 image_scale: int = 1, image_margin_bottom=0, cg_dir="", prioroty=1, background_color=None,
+                 repeat=False):
         super().__init__(prioroty)
+        self.name = json.load(open(cutscene_json_path))['name']
+        self.asset = asset
         self.cutscene = json.load(open(cutscene_json_path))['dialogue']
         self.music = json.load(open(cutscene_json_path))['music']
         self.dialogue_key = dialogue_key
@@ -17,6 +21,7 @@ class Cutscene(Interaction):
         self.current_part_number = 0
         self.cg_dir = cg_dir
         self.background_color = background_color
+        self.repeat = repeat
         if not self.cg_dir:
             self.cg_dir = self.settings.CGS_PATH
         if not self.background_color:
@@ -50,6 +55,8 @@ class Cutscene(Interaction):
                     self.current_part_number = 0
                     pygame.mixer.Channel(1).stop()
                     pygame.mixer.Channel(0).unpause()
+                    if not self.repeat:
+                        add_to_save({self.asset: True})
                     return
                 return self.functionality(asset)
             if current_dialogue_surface:

@@ -163,3 +163,4 @@ graphics/
 sound/
 json_files/
 main.py
+saved_position.json
